@@ -33,7 +33,7 @@
       "url": "_framework\/icudt_no_CJK.dat"
     },
     {
-      "hash": "sha256-aF6WpSTmBeucrBC0bepf9dzR+tUh+lqabIRe5pM70nQ=",
+      "hash": "sha256-olDTjD9SpXvSt1g5gFziPRk96NoZivJC+VMpt1ho70Q=",
       "url": "_framework\/blazor.boot.json"
     },
     {
@@ -93,7 +93,7 @@
       "url": "_framework\/Microsoft.JSInterop.WebAssembly.wasm"
     },
     {
-      "hash": "sha256-WrFp8\/rXw1N2c3a6wafeQ7xHcRzX56hLEGFr978Cz9w=",
+      "hash": "sha256-GVMPkOmlgMjoCMpaw86vayp5mPebcWq16l6bk7sG2pA=",
       "url": "_framework\/PuzzleSolver.wasm"
     },
     {
@@ -201,9 +201,21 @@
       "url": "manifest.webmanifest"
     },
     {
+      "hash": "sha256-pvyx\/xE6C8IwYj0bOftIRbCF1jBCQ0tDUQOVHzkHu50=",
+      "url": "sample-data\/AdventOfCode\/Y2023\/Day20\/PulsePropagation_full.txt"
+    },
+    {
+      "hash": "sha256-XCixafs2UMYOm2V8ieZcHL4yvimB+sWi\/rmt1cU4cbo=",
+      "url": "sample-data\/AdventOfCode\/Y2023\/Day20\/PulsePropagation.txt"
+    },
+    {
+      "hash": "sha256-GdtGKk1v0TdWeyM++OZZCbqyaU+\/0\/kEB0v332AfPpU=",
+      "url": "sample-data\/AdventOfCode\/Y2023\/Day20\/PulsePropagation2.txt"
+    },
+    {
       "hash": "sha256-paIeuWnSzjeLGITWkk4p3rcejUsZWCJGPeOK9UhWXtg=",
       "url": "sample-data\/weather.json"
     }
   ],
-  "version": "xLDLpsEe"
+  "version": "urM2rCcH"
 };
