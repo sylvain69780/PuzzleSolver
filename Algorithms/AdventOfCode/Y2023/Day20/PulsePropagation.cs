@@ -7,7 +7,7 @@ using System.Xml.Linq;
 
 namespace Algorithms.AdventOfCode.Y2023.Day20
 {
-    public class PulsePropagation
+    public class PulsePropagation : ISolution
     {
         public IEnumerable<string> Solve(string input, string part)
         {
@@ -191,7 +191,7 @@ namespace Algorithms.AdventOfCode.Y2023.Day20
             */
             var connectedToRx = configuration.Single(x => x.destinations.Contains("rx")).name;
             var modulesTargingIt = configuration.Where(x => x.destinations.Contains(connectedToRx)).Select(x => x.name).ToArray();
-            var counters = modulesTargingIt.Select(x => (name: x, occu: new List<(int count,int time,int period)>())).ToDictionary(x => x.name, x => x.occu);
+            var counters = modulesTargingIt.Select(x => (name: x, occu: new List<(int count, int time, int period)>())).ToDictionary(x => x.name, x => x.occu);
 
             var count = 0;
             var found = false;
@@ -207,11 +207,11 @@ namespace Algorithms.AdventOfCode.Y2023.Day20
                     var newQueue = new Queue<(string name, string pulse, string pulseOrigin)>();
                     while (bfs.TryDequeue(out var module) && !found)
                     {
-                        if (module.name==connectedToRx)
+                        if (module.name == connectedToRx)
                         {
                             if (module.pulse == "-high" && counters.TryGetValue(module.pulseOrigin, out var list))
                             {
-                                list.Add((count, time,list.Count>0 ? count - list[^1].count : 0));
+                                list.Add((count, time, list.Count > 0 ? count - list[^1].count : 0));
                                 if (counters.Values.All(x => x.Count >= 2))
                                     found = true;
                             }
