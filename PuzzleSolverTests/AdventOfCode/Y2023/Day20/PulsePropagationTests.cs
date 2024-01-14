@@ -16,6 +16,7 @@ namespace PuzzleSolverTests.AdventOfCode.Y2023.Day20
             Assert.Equal("32000000", solver.Solve(input, "Part 1").Last());
             Assert.Equal("11687500", solver.Solve(input1, "Part 1").Last());
             Assert.Equal("818649769", solver.Solve(input2, "Part 1").Last());
+            Assert.Equal("246313604784977", solver.Solve(input2, "Part 2").Last());
         }
 
         const string path = "..\\..\\..\\..\\PuzzleSolver\\wwwroot\\sample-data\\AdventOfCode\\Y2023\\Day20";
