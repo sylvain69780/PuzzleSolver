@@ -4,10 +4,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.8.34316.72
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PuzzleSolver", "PuzzleSolver\PuzzleSolver.csproj", "{87966781-957D-4AF9-A95F-A5CBA09CC69A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{7CA8A0D5-24FD-4625-887E-1D6C2B93B3FD} = {7CA8A0D5-24FD-4625-887E-1D6C2B93B3FD}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PuzzleSolverTests", "PuzzleSolverTests\PuzzleSolverTests.csproj", "{09E51178-BF1A-4165-B9E5-D4E9C14AF534}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Algorithms", "Algorithms\Algorithms.csproj", "{7CA8A0D5-24FD-4625-887E-1D6C2B93B3FD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Algorithms", "Algorithms\Algorithms.csproj", "{7CA8A0D5-24FD-4625-887E-1D6C2B93B3FD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

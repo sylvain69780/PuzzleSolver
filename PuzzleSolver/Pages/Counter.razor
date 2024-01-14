@@ -1,18 +1,33 @@
 ﻿@page "/counter"
+@using Algorithms.AdventOfCode.Y2023.Day20
+@inject HttpClient Http
 
-<PageTitle>Counter</PageTitle>
+<PageTitle>Solution</PageTitle>
 
-<h1>Counter</h1>
+<h1>Solution</h1>
 
-<p role="status">Current count: @currentCount</p>
+@foreach(var part in pulsePropagation.Strategies)
+{
+<button class="btn btn-primary" @onclick="(e) => IncrementCount(part)">Solve @part</button>    
+}
 
-<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+<p class="p-2" role="status">Solution: @solution</p>
 
 @code {
-    private int currentCount = 0;
+    private string input = string.Empty;
 
-    private void IncrementCount()
+    private string solution = string.Empty;
+
+    private PulsePropagation pulsePropagation = new ();
+
+    protected override async Task OnInitializedAsync()
     {
-        currentCount++;
+        var s = await Http.GetStringAsync("sample-data/AdventOfCode/Y2023/Day20/PulsePropagation_full.txt");
+        input = s.Replace("\r", "");
+    }
+
+    private void IncrementCount(string part)
+    {
+        solution = pulsePropagation.Solve(input,part).Last();
     }
 }

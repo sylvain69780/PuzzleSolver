@@ -212,7 +212,7 @@ namespace Algorithms.AdventOfCode.Y2023.Day20
                             if (module.pulse == "-high" && counters.TryGetValue(module.pulseOrigin, out var list))
                             {
                                 list.Add((count, time,list.Count>0 ? count - list[^1].count : 0));
-                                if (counters.Values.All(x => x.Count >= 10))
+                                if (counters.Values.All(x => x.Count >= 2))
                                     found = true;
                             }
                         }
