@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "PuzzleSolver",
   "resources": {
-    "hash": "sha256-oy19/v770pACYAQElxhp2LPzW1qcLMF8aG2DD9JV/3o=",
+    "hash": "sha256-nUASMT6DZcpp2pbgXPi/mFrhrtlIsfQy8iTlNCODFds=",
     "jsModuleNative": {
       "dotnet.native.8.0.1.ahpp78valh.js": "sha256-SGOlISx+3G4kkvpC9Uq3qoPGsnjxGmW61QBev0lyI5U="
     },
@@ -31,7 +31,7 @@
       "Microsoft.Extensions.Primitives.wasm": "sha256-6187ynEahDlSLMBvD4vAmiLpZ3clRb5xu6rM7O8AxNo=",
       "Microsoft.JSInterop.wasm": "sha256-lXwhdv0Is9FMH/j0+WH3zoNWAGLbVaONtGucJ/4URQ0=",
       "Microsoft.JSInterop.WebAssembly.wasm": "sha256-CQVLCKiSxLN5ghyJZG3mhnMGRROdqrbNUjtAXB0nWb8=",
-      "PuzzleSolver.wasm": "sha256-V9cr9HtgqmwxsQ37kk6t5DwioJodZhYy9wnebLsPSyc=",
+      "PuzzleSolver.wasm": "sha256-ij0csNp+uuWSi2ke9kdrHEAk22k/MVxk4xv6tNyfhhE=",
       "System.Collections.Concurrent.wasm": "sha256-0j1YW/96ftT2C89MHcCTY0SmqlOeLhlAcBjNqgQ0A90=",
       "System.Collections.wasm": "sha256-vmsYLLk8McuaVAVXz6apamYb9GxVVkSB5oo6/kub+6Q=",
       "System.ComponentModel.wasm": "sha256-/6Kik6mC6ZHx8OXft116HbGv8VWDCF3oge/a6pf8jB8=",
