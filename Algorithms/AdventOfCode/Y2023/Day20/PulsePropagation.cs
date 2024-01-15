@@ -7,16 +7,14 @@ using System.Xml.Linq;
 
 namespace Algorithms.AdventOfCode.Y2023.Day20
 {
-    public class PulsePropagation : ISolution
+    public class PulsePropagation : PulsePropagationBase<PulsePropagationDataModel>, ISolution
     {
-        public IEnumerable<string> Solve(string input, string part)
+        public PulsePropagation()
         {
-            var algo = _parts[part];
-            var data = Parse(input);
-            return algo(data);
+            _parts.Add("Part 1", PartOne);
+            _parts.Add("Part 2", PartTwo);
         }
-
-        static PulsePropagationDataModel Parse(string input)
+        protected override PulsePropagationDataModel Parse(string input)
         {
             var broadcaster = new string[] { "broadcaster" };
             return new PulsePropagationDataModel()
@@ -38,13 +36,6 @@ namespace Algorithms.AdventOfCode.Y2023.Day20
             };
         }
 
-        static Dictionary<string, Func<PulsePropagationDataModel, IEnumerable<string>>> _parts = new()
-        {
-            { "Part 1" ,PartOne },
-            { "Part 2", PartTwo }
-        };
-
-        public IEnumerable<string> Strategies => _parts.Keys;
 
         static IEnumerable<string> PartOne(PulsePropagationDataModel input)
         {
