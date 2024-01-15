@@ -33,11 +33,11 @@
       "url": "_framework\/icudt_no_CJK.dat"
     },
     {
-      "hash": "sha256-nEK31FP0UqctEmBXYwYhrzZopnhrUZE58sow5LXZSFs=",
+      "hash": "sha256-cpUqRkaTRKT0Wi77xRB5IJXOEwVp1Jy6SGzi1pg+RP0=",
       "url": "_framework\/blazor.boot.json"
     },
     {
-      "hash": "sha256-zxF5MXbLQKFrforrd\/svdT1s4CMHtbebDIUXZlBUQyg=",
+      "hash": "sha256-Uchh6h0THgmKU\/kgam+BMDd0ZVsf4v3jaVhpDCB+tnU=",
       "url": "_framework\/Algorithms.wasm"
     },
     {
@@ -97,7 +97,7 @@
       "url": "_framework\/Microsoft.JSInterop.WebAssembly.wasm"
     },
     {
-      "hash": "sha256-fiOCsHYsPeg0jkKws8Jphfsoy67GyQhh3R0abMQY0iM=",
+      "hash": "sha256-VlCYW1XahC2ZpzEQekpasTlAhPpDIgNEc8tLAJMTqK0=",
       "url": "_framework\/PuzzleSolver.wasm"
     },
     {
@@ -121,7 +121,7 @@
       "url": "_framework\/System.Diagnostics.DiagnosticSource.wasm"
     },
     {
-      "hash": "sha256-mZdBZThqmsEzHA2HVjADOEqTofs0Q7PSW5QJ6PIFd6w=",
+      "hash": "sha256-+a7ZlRPI2q5fC3hdZAEpnArCyV9\/EFgMjwZHh5NezlM=",
       "url": "_framework\/System.Linq.wasm"
     },
     {
@@ -141,7 +141,7 @@
       "url": "_framework\/System.Net.Primitives.wasm"
     },
     {
-      "hash": "sha256-JKqUzCyyvlF1dAxD0utLu2cmOaXLmMYnx6tBaEtGwZQ=",
+      "hash": "sha256-J4FxaZ7FFiJ\/Uu\/SCFzswwfhP6oLHEwZxzjoaoXrjqg=",
       "url": "_framework\/System.Private.CoreLib.wasm"
     },
     {
@@ -153,7 +153,7 @@
       "url": "_framework\/System.Runtime.InteropServices.JavaScript.wasm"
     },
     {
-      "hash": "sha256-ier51ibo\/oXV\/lf5uTuR1yFzEOnG7g1KYUuGw3nT0KY=",
+      "hash": "sha256-Bdm4I1tHMskYPUdz1yvDA3P28O8lNoFvAQyka+VFKZo=",
       "url": "_framework\/System.Runtime.wasm"
     },
     {
@@ -217,9 +217,17 @@
       "url": "sample-data\/AdventOfCode\/Y2023\/Day20\/PulsePropagation2.txt"
     },
     {
+      "hash": "sha256-8RRHwAPaDhJbn+sDe6phdfQrgY7ze\/RUNppuiInghgU=",
+      "url": "sample-data\/AdventOfCode\/Y2023\/Day21\/StepCounter_full.txt"
+    },
+    {
+      "hash": "sha256-FfrijWWH\/wEb0lsotistjBGo+cCSp0ADoPX9UD2s7Fo=",
+      "url": "sample-data\/AdventOfCode\/Y2023\/Day21\/StepCounter.txt"
+    },
+    {
       "hash": "sha256-paIeuWnSzjeLGITWkk4p3rcejUsZWCJGPeOK9UhWXtg=",
       "url": "sample-data\/weather.json"
     }
   ],
-  "version": "dgmhQ6mO"
+  "version": "vW3b3PuM"
 };
