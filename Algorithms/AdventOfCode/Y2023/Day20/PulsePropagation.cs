@@ -7,7 +7,7 @@ using System.Xml.Linq;
 
 namespace Algorithms.AdventOfCode.Y2023.Day20
 {
-    public class PulsePropagation : PulsePropagationBase<PulsePropagationDataModel>, ISolution
+    public class PulsePropagation : SolutionBase<PulsePropagationDataModel>, ISolution
     {
         public PulsePropagation()
         {

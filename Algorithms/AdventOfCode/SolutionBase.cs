@@ -1,6 +1,6 @@
 ﻿namespace Algorithms.AdventOfCode
 {
-    public abstract class PulsePropagationBase<T>
+    public abstract class SolutionBase<T>
     {
         protected static Dictionary<string, Func<T, IEnumerable<string>>> _parts = [];
 
