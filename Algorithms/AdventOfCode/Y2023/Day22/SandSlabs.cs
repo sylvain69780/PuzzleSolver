@@ -41,6 +41,20 @@ namespace Algorithms.AdventOfCode.Y2023.Day22
         static IEnumerable<string> PartOne(SandSlabsDataModel model)
         {
             var bricks = model.Bricks!;
+            List<(int brick, int supports)> supports = SimulateFall(bricks);
+
+            var count = 0;
+            for (var i = 0; i < bricks.Count; i++)
+            {
+                var supported = supports.Where(s => s.brick == i).Select(s => s.supports).ToList();
+                if (supported.Count == 0 || supported.All(s => supports.Any(ss => ss.brick != i && ss.supports == s)))
+                    count++;
+            }
+            yield return count.ToString();
+        }
+
+        private static List<(int brick, int supports)> SimulateFall(List<((long x, long y, long z) start, (long x, long y, long z) end)> bricks)
+        {
             var moveOccured = true;
             while (moveOccured)
             {
@@ -74,19 +88,35 @@ namespace Algorithms.AdventOfCode.Y2023.Day22
                 .ToDictionary(a => a.c, a => a.i);
             var supports = finalPositions.Select(p => finalPositions.TryGetValue((p.Key.x, p.Key.y, p.Key.z + 1), out var over) ? (brick: p.Value, supports: over) : (brick: p.Value, supports: p.Value))
                 .Where(b => b.brick != b.supports).Distinct().ToList();
-
-            var count = 0;
-            for (var i=0;i<bricks.Count;i++)
-            {
-                var supported = supports.Where(s => s.brick == i).Select(s => s.supports).ToList();
-                if (supported.Count == 0 || supported.All(s => supports.Any(ss => ss.brick != i && ss.supports == s)))
-                    count++;
-            }
-            yield return count.ToString();
+            return supports;
         }
+
         static IEnumerable<string> PartTwo(SandSlabsDataModel model)
         {
-            yield return string.Empty;
+            var bricks = model.Bricks!;
+            List<(int brick, int supports)> supports = SimulateFall(bricks);
+
+            var count = 0;
+            for (var i = 0; i < bricks.Count; i++)
+            {
+                var listOfBricks = Enumerable.Range(0, bricks.Count).Where(x => x != i && bricks[x].start.z > 1).ToList();
+                var remainingSupports = supports.Where(s => s.brick != i).ToList();
+                var isKeepFalling= true;
+                while (isKeepFalling)
+                {
+                    isKeepFalling = false;
+                    var supporting = remainingSupports.Select(x => x.supports).ToHashSet();
+                    var falling = listOfBricks.Where(x => !supporting.Contains(x)).ToList();
+                    if ( falling.Count > 0 )
+                    {
+                        isKeepFalling = true;
+                        count += falling.Count;
+                        listOfBricks.RemoveAll(x => falling.Contains(x));
+                        remainingSupports.RemoveAll(s => falling.Contains(s.brick));
+                    }
+                }
+            }
+            yield return count.ToString();
         }
     }
 }

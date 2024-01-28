@@ -15,7 +15,8 @@ namespace PuzzleSolverTests.AdventOfCode.Y2023.Day22
         public void Test2()
         {
             var solver = new SandSlabs();
-            Assert.Equal("602259568764234", solver.Solve(input2, "Part 2").Last());
+            Assert.Equal("7", solver.Solve(input, "Part 2").Last());
+            Assert.Equal("102770", solver.Solve(input2, "Part 2").Last());
         }
 
         const string path = "..\\..\\..\\..\\PuzzleSolver\\wwwroot\\sample-data\\AdventOfCode\\Y2023\\Day22";
