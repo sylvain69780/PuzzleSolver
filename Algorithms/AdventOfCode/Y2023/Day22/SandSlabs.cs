@@ -1,11 +1,4 @@
-﻿using Algorithms.AdventOfCode.Y2023.Day21;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+﻿using System.Text.RegularExpressions;
 
 namespace Algorithms.AdventOfCode.Y2023.Day22
 {
@@ -20,11 +13,6 @@ namespace Algorithms.AdventOfCode.Y2023.Day22
                                 end: (x: long.Parse(x.Groups[4].Value), y: long.Parse(x.Groups[5].Value), z: long.Parse(x.Groups[6].Value)))).ToList()
             };
         }
-        public SandSlabs()
-        {
-            _parts.Add("Part 1", PartOne);
-            _parts.Add("Part 2", PartTwo);
-        }
 
         static List<(long x, long y, long z)> Cubes(((long x, long y, long z) start, (long x, long y, long z) end) brick)
         {
@@ -37,8 +25,8 @@ namespace Algorithms.AdventOfCode.Y2023.Day22
                     }
             return cubes;
         }
-
-        static IEnumerable<string> PartOne(SandSlabsDataModel model)
+        [SolutionMethod("Part 1")]
+        public static IEnumerable<string> PartOne(SandSlabsDataModel model)
         {
             var bricks = model.Bricks!;
             List<(int brick, int supports)> supports = SimulateFall(bricks);
@@ -90,8 +78,8 @@ namespace Algorithms.AdventOfCode.Y2023.Day22
                 .Where(b => b.brick != b.supports).Distinct().ToList();
             return supports;
         }
-
-        static IEnumerable<string> PartTwo(SandSlabsDataModel model)
+        [SolutionMethod("Part 2")]
+        public static IEnumerable<string> PartTwo(SandSlabsDataModel model)
         {
             var bricks = model.Bricks!;
             List<(int brick, int supports)> supports = SimulateFall(bricks);

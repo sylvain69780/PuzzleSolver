@@ -9,11 +9,6 @@ namespace Algorithms.AdventOfCode.Y2023.Day20
 {
     public class PulsePropagation : SolutionBase<PulsePropagationDataModel>, ISolution
     {
-        public PulsePropagation()
-        {
-            _parts.Add("Part 1", PartOne);
-            _parts.Add("Part 2", PartTwo);
-        }
         protected override PulsePropagationDataModel Parse(string input)
         {
             var broadcaster = new string[] { "broadcaster" };
@@ -36,8 +31,8 @@ namespace Algorithms.AdventOfCode.Y2023.Day20
             };
         }
 
-
-        static IEnumerable<string> PartOne(PulsePropagationDataModel input)
+        [SolutionMethod("Part 1")]
+        public static IEnumerable<string> PartOne(PulsePropagationDataModel input)
         {
             var configuraton = input.ModuleConfiguration!;
             var flipFlops = configuraton
@@ -161,7 +156,8 @@ namespace Algorithms.AdventOfCode.Y2023.Day20
             yield return count.ToString();
         }
 
-        static IEnumerable<string> PartTwo(PulsePropagationDataModel input)
+        [SolutionMethod("Part 2")]
+        public static IEnumerable<string> PartTwo(PulsePropagationDataModel input)
         {
             var configuration = input.ModuleConfiguration!;
             var flipFlops = configuration

@@ -21,12 +21,6 @@ namespace Algorithms.AdventOfCode.Y2023.Day21
             };
         }
 
-        public StepCounter()
-        {
-            _parts.Add("Part 1", PartOne);
-            _parts.Add("Part 2", PartTwo);
-        }
-
         static readonly (int x, int y)[] Directions = [(1, 0), (-1, 0), (0, 1), (0, -1)];
 
         static char Tile(string[] map, (int x, int y) pos)
@@ -36,8 +30,9 @@ namespace Algorithms.AdventOfCode.Y2023.Day21
             var c = map[pos.y][pos.x];
             return c == 'S' ? '.' : c;
         }
+        [SolutionMethod("Part 1")]
 
-        static IEnumerable<string> PartOne(StepCounterDataModel model)
+        public static IEnumerable<string> PartOne(StepCounterDataModel model)
         {
             var start = model.Pos;
             var map = model.Map;
@@ -87,8 +82,8 @@ namespace Algorithms.AdventOfCode.Y2023.Day21
             var c = map[pos.y][pos.x];
             return c == 'S' ? '.' : c;
         }
-
-        static IEnumerable<string> PartTwo(StepCounterDataModel model)
+        [SolutionMethod("Part 2")]
+        public static IEnumerable<string> PartTwo(StepCounterDataModel model)
         {
             var start = model.Pos;
             var map = model.Map;
