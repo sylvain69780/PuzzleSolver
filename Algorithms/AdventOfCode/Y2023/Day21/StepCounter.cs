@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Algorithms.AdventOfCode.Y2023.Day21
 {
-    public class StepCounter : SolutionBase<StepCounterDataModel>, ISolution
+    public class StepCounter : SolutionBase<StepCounterDataModel>
     {
         protected override StepCounterDataModel Parse(string input)
         {

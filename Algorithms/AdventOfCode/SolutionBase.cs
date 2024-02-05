@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace Algorithms.AdventOfCode
 {
-    public abstract class SolutionBase<T>
+    public abstract class SolutionBase<T> : ISolution
     {
         private Dictionary<string, Func<T, IEnumerable<string>>>? cachedParts;
         private Dictionary<string, Func<T, IEnumerable<string>>> Parts()

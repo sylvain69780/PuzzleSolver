@@ -9,7 +9,7 @@ namespace Algorithms.AdventOfCode.Y2023.Day23
             return new Stack<T>(source.Reverse());
         }
     }
-    public class ALongWalk : SolutionBase<ALongWalkDataModel>, ISolution
+    public class ALongWalk : SolutionBase<ALongWalkDataModel>
     {
         protected override ALongWalkDataModel Parse(string input)
         {
