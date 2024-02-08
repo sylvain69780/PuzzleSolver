@@ -1,4 +1,6 @@
-﻿namespace Algorithms.AdventOfCode
+﻿using System.Collections.Generic;
+
+namespace Algorithms.AdventOfCode
 {
     public interface ISolution
     {

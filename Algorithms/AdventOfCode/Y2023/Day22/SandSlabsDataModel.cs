@@ -8,6 +8,6 @@ namespace Algorithms.AdventOfCode.Y2023.Day22
 {
     public class SandSlabsDataModel
     {
-        public List<((long x, long y, long z) start, (long x, long y, long z) end)>? Bricks { get; set; }
+        public List<((long x, long y, long z) start, (long x, long y, long z) end)> Bricks { get; set; }
     }
 }

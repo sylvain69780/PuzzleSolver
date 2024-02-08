@@ -1,5 +1,8 @@
-﻿namespace Algorithms.AdventOfCode
+﻿using System;
+
+namespace Algorithms.AdventOfCode
 {
+    [AttributeUsage(AttributeTargets.Method)]
     internal class SolutionMethodAttribute : Attribute
     {
         public string Description { get; }

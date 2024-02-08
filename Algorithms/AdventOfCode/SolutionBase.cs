@@ -1,11 +1,14 @@
 ﻿using Algorithms.AdventOfCode.Y2023.Day23;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 
 namespace Algorithms.AdventOfCode
 {
     public abstract class SolutionBase<T> : ISolution
     {
-        private Dictionary<string, Func<T, IEnumerable<string>>>? cachedParts;
+        private Dictionary<string, Func<T, IEnumerable<string>>> cachedParts;
         private Dictionary<string, Func<T, IEnumerable<string>>> Parts()
         {
             if (cachedParts is null)
@@ -19,7 +22,7 @@ namespace Algorithms.AdventOfCode
                     .ToArray();
                 foreach (var method in methodsWithAttribute)
                 {
-                    var customAttribute = (SolutionMethodAttribute)Attribute.GetCustomAttribute(method, typeof(SolutionMethodAttribute))!;
+                    var customAttribute = (SolutionMethodAttribute)Attribute.GetCustomAttribute(method, typeof(SolutionMethodAttribute));
                     parts.Add(customAttribute.Description, (Func<T, IEnumerable<string>>)method.CreateDelegate(typeof(Func<T, IEnumerable<string>>)));
                 }
                 cachedParts = parts;

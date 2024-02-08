@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
 namespace Algorithms.AdventOfCode.Y2023.Day23
 {
@@ -15,13 +17,13 @@ namespace Algorithms.AdventOfCode.Y2023.Day23
         {
             return new ALongWalkDataModel
             {
-                Map = input.Split("\n")
+                Map = input.Split('\n')
             };
         }
 
-        static (int x, int y)[] directions = [(1, 0), (-1, 0), (0, 1), (0, -1)];
+        static (int x, int y)[] directions = new (int x, int y)[] { (1, 0), (-1, 0), (0, 1), (0, -1) };
 
-        static readonly char[] TilesOk = ['.', '>', '<', '^', 'v'];
+        static readonly char[] TilesOk = new char[] { '.', '>', '<', '^', 'v' };
 
         static bool IsInpossible(char tile, (int x, int y) dir)
         {
@@ -42,7 +44,7 @@ namespace Algorithms.AdventOfCode.Y2023.Day23
         [SolutionMethod("Part 1")]
         public static IEnumerable<string> PartOne(ALongWalkDataModel model)
         {
-            var map = model.Map!;
+            var map = model.Map;
             var start = (x: 1, y: 0);
             var exit = (x: map[0].Length - 2, y: map.Length - 1);
             var path = new Stack<(int x, int y)>();
@@ -89,12 +91,14 @@ namespace Algorithms.AdventOfCode.Y2023.Day23
                         }
                     }
                     if (forks.Count > 1)
-                        forks[1..].ForEach(l =>
+                        for (var i = 1; i<forks.Count;i++)
                         {
+                            var l = forks[i];
                             var newStack = stack.Clone();
-                            l.ForEach(p => newStack.Push(p));
+                            for (var j = 0; j< l.Count; j++)
+                                newStack.Push(l[j]);
                             newQueue.Enqueue(newStack);
-                        });
+                        }
                     if (forks.Count > 0)
                     {
                         forks[0].ForEach(p => stack.Push(p));
@@ -108,7 +112,7 @@ namespace Algorithms.AdventOfCode.Y2023.Day23
                 var line = new StringBuilder(map[p.y]);
                 line[p.x] = 'O';
                 map[p.y] = line.ToString();
-                var test = string.Join('\n', map);
+                var test = string.Join("\n", map);
             }
             yield return (results.Max() - 1).ToString();
         }
@@ -118,7 +122,7 @@ namespace Algorithms.AdventOfCode.Y2023.Day23
         [SolutionMethod("Part 2")]
         public static IEnumerable<string> PartTwo(ALongWalkDataModel model)
         {
-            var bfsMap = model.Map!.Select(l => l.ToArray()).ToArray();
+            var bfsMap = model.Map.Select(l => l.ToArray()).ToArray();
             var start = (x: 1, y: 0);
             var exit = (x: bfsMap[0].Length - 2, y: bfsMap.Length - 1);
             var nodes = new HashSet<(int x, int y)>
@@ -242,12 +246,12 @@ namespace Algorithms.AdventOfCode.Y2023.Day23
                 mapCopy[p.y] = line.ToString();
                 //var test = string.Join('\n', mapCopy);
             }
-            var test = string.Join('\n', mapCopy);
+            var test = string.Join("\n", mapCopy);
         }
 
         static void Visu2(char[][] map)
         {
-            var test = string.Join('\n', map.Select(l => new string(l)));
+            var test = string.Join("\n", map.Select(l => new string(l)));
         }
     }
 }

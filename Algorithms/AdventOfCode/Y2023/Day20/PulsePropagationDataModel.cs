@@ -2,6 +2,6 @@
 {
     public class PulsePropagationDataModel
     {
-        public (char type,string name, string[] destinations)[]? ModuleConfiguration { get; set; }
+        public (char type,string name, string[] destinations)[] ModuleConfiguration { get; set; }
     }
 }

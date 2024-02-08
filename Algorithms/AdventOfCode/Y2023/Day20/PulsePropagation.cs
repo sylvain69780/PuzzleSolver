@@ -14,17 +14,10 @@ namespace Algorithms.AdventOfCode.Y2023.Day20
             var broadcaster = new string[] { "broadcaster" };
             return new PulsePropagationDataModel()
             {
-
-                ModuleConfiguration = input.Split("\n")
-                            .Select(x => x.Split(" -> "))
-                            .Select(x => (name: x[0], destinations: x[1].Split(", ")))
-                            .Select(x =>
-                            {
-                                if (x.name[0] == '&' || x.name[0] == '%')
-                                    return (type: x.name[0], name: x.name[1..], x.destinations);
-                                else
-                                    return (type: ' ', x.name, x.destinations);
-                            })
+                ModuleConfiguration = input.Split('\n')
+                            .Select(x => x.Split(new[] { " -> " },StringSplitOptions.None))
+                            .Select(x => (name: x[0], destinations: x[1].Split(new[] { ", " },StringSplitOptions.None)))
+                            .Select(x => x.name[0] == '&' || x.name[0] == '%' ? (type: x.name[0], name: x.name.Substring(1), x.destinations) : (type: ' ', x.name, x.destinations))
                             .Append((' ', "button", broadcaster))
                             .Append((' ', "output", Array.Empty<string>()))
                             .ToArray(),
@@ -34,13 +27,13 @@ namespace Algorithms.AdventOfCode.Y2023.Day20
         [SolutionMethod("Part 1")]
         public static IEnumerable<string> PartOne(PulsePropagationDataModel input)
         {
-            var configuraton = input.ModuleConfiguration!;
+            var configuraton = input.ModuleConfiguration;
             var flipFlops = configuraton
                 .Where(x => x.type == '%')
                 .ToDictionary(x => x.name, x => "off");
             var conjonctions = configuraton
                 .Where(x => x.type == '&')
-                .Select(x => (x.name, connected: configuraton.Where(y => y.destinations.Contains(x.name)).Select(y => (y.name, lastPulse: "-low")).ToDictionary(x => x.name, x => x.lastPulse)))
+                .Select(x => (x.name, connected: configuraton.Where(y => y.destinations.Contains(x.name)).Select(y => (y.name, lastPulse: "-low")).ToDictionary(e => e.name, e => e.lastPulse)))
                 .ToDictionary(x => x.name, x => x.connected);
             var types = configuraton.ToDictionary(x => x.name, x => x.type);
             var destinations = configuraton.ToDictionary(x => x.name, x => x.destinations);
@@ -94,13 +87,13 @@ namespace Algorithms.AdventOfCode.Y2023.Day20
         }
         static IEnumerable<string> PartTwoNaive(PulsePropagationDataModel input)
         {
-            var configuraton = input.ModuleConfiguration!;
+            var configuraton = input.ModuleConfiguration;
             var flipFlops = configuraton
                 .Where(x => x.type == '%')
                 .ToDictionary(x => x.name, x => "off");
             var conjonctions = configuraton
                 .Where(x => x.type == '&')
-                .Select(x => (x.name, connected: configuraton.Where(y => y.destinations.Contains(x.name)).Select(y => (y.name, lastPulse: "-low")).ToDictionary(x => x.name, x => x.lastPulse)))
+                .Select(x => (x.name, connected: configuraton.Where(y => y.destinations.Contains(x.name)).Select(y => (y.name, lastPulse: "-low")).ToDictionary(e => e.name, e => e.lastPulse)))
                 .ToDictionary(x => x.name, x => x.connected);
             var types = configuraton.ToDictionary(x => x.name, x => x.type);
             var destinations = configuraton.ToDictionary(x => x.name, x => x.destinations);
@@ -159,13 +152,13 @@ namespace Algorithms.AdventOfCode.Y2023.Day20
         [SolutionMethod("Part 2")]
         public static IEnumerable<string> PartTwo(PulsePropagationDataModel input)
         {
-            var configuration = input.ModuleConfiguration!;
+            var configuration = input.ModuleConfiguration;
             var flipFlops = configuration
                 .Where(x => x.type == '%')
                 .ToDictionary(x => x.name, x => "off");
             var conjonctions = configuration
                 .Where(x => x.type == '&')
-                .Select(x => (x.name, connected: configuration.Where(y => y.destinations.Contains(x.name)).Select(y => (y.name, lastPulse: "-low")).ToDictionary(x => x.name, x => x.lastPulse)))
+                .Select(x => (x.name, connected: configuration.Where(y => y.destinations.Contains(x.name)).Select(y => (y.name, lastPulse: "-low")).ToDictionary(e => e.name, e => e.lastPulse)))
                 .ToDictionary(x => x.name, x => x.connected);
             var types = configuration.ToDictionary(x => x.name, x => x.type);
             var destinations = configuration.ToDictionary(x => x.name, x => x.destinations);
@@ -198,7 +191,7 @@ namespace Algorithms.AdventOfCode.Y2023.Day20
                         {
                             if (module.pulse == "-high" && counters.TryGetValue(module.pulseOrigin, out var list))
                             {
-                                list.Add((count, time, list.Count > 0 ? count - list[^1].count : 0));
+                                list.Add((count, time, list.Count > 0 ? count - list[list.Count - 1].count : 0));
                                 if (counters.Values.All(x => x.Count >= 2))
                                     found = true;
                             }
@@ -239,7 +232,7 @@ namespace Algorithms.AdventOfCode.Y2023.Day20
                     bfs = newQueue;
                 }
             }
-            var solution = counters.Values.Select(x => x[^1].period).Aggregate(1L, (a, b) => (a * b));
+            var solution = counters.Values.Select(x => x[x.Count - 1].period).Aggregate(1L, (a, b) => (a * b));
             yield return solution.ToString();
         }
 

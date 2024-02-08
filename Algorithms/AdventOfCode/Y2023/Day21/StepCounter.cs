@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Diagnostics;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Algorithms.AdventOfCode.Y2023.Day21
 {
@@ -12,7 +7,7 @@ namespace Algorithms.AdventOfCode.Y2023.Day21
     {
         protected override StepCounterDataModel Parse(string input)
         {
-            var map = input.Split("\n");
+            var map = input.Split('\n');
             var pos = map.Select((s, y) => (s, y)).Where(l => l.s.Contains('S')).Select(l => (x: l.s.IndexOf('S'), l.y)).Single();
             return new StepCounterDataModel
             {
@@ -21,7 +16,7 @@ namespace Algorithms.AdventOfCode.Y2023.Day21
             };
         }
 
-        static readonly (int x, int y)[] Directions = [(1, 0), (-1, 0), (0, 1), (0, -1)];
+        static readonly (int x, int y)[] Directions = new (int x, int y)[] {(1, 0), (-1, 0), (0, 1), (0, -1)};
 
         static char Tile(string[] map, (int x, int y) pos)
         {
