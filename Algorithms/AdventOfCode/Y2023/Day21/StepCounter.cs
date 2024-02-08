@@ -32,16 +32,15 @@ namespace Algorithms.AdventOfCode.Y2023.Day21
             var start = model.Pos;
             var map = model.Map;
             var bfs = new Queue<(int x, int y)>();
+            var newQueue = new Queue<(int x, int y)>();
             bfs.Enqueue(start);
-            var count = 0;
             var maxCount = map.Length <= 11 ? 6 : 64;
-            while (count < maxCount)
+            var grid = new HashSet<(int x, int y)>();
+            while ( --maxCount >= 0)
             {
-                count++;
-                var newQueue = new Queue<(int x, int y)>();
-                var grid = new HashSet<(int x, int y)>();
-                while (bfs.TryDequeue(out var pos))
+                while (bfs.Count > 0 )
                 {
+                    var pos = bfs.Dequeue();
                     foreach (var (x, y) in Directions)
                     {
                         var tpos = (pos.x + x, pos.y + y);
@@ -52,9 +51,10 @@ namespace Algorithms.AdventOfCode.Y2023.Day21
                         grid.Add(tpos);
                     }
                 }
-                bfs = newQueue;
+                (bfs,newQueue) = (newQueue,bfs);
+                newQueue.Clear();
+                grid.Clear();
             }
-
             yield return bfs.Count.ToString();
         }
 
@@ -96,8 +96,9 @@ namespace Algorithms.AdventOfCode.Y2023.Day21
                 count++;
                 var newQueue = new Queue<(int x, int y)>();
                 var grid = new HashSet<(int x, int y)>();
-                while (bfs.TryDequeue(out var pos))
+                while (bfs.Count > 0)
                 {
+                    var pos = bfs.Dequeue();
                     foreach (var (x, y) in Directions)
                     {
                         var tpos = (pos.x + x, pos.y + y);

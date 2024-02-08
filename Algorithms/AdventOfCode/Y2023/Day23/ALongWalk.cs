@@ -55,57 +55,53 @@ namespace Algorithms.AdventOfCode.Y2023.Day23
             var best = new List<(int x, int y)>();
             while (bfs.Count > 0)
             {
-                var newQueue = new Queue<Stack<(int x, int y)>>();
-                while (bfs.TryDequeue(out var stack))
+                var stack = bfs.Dequeue();
+                var head = stack.Peek();
+                var forks = new List<List<(int x, int y)>>();
+                foreach (var dir in directions)
                 {
-                    var head = stack.Peek();
-                    var forks = new List<List<(int x, int y)>>();
-                    foreach (var dir in directions)
+                    var pos = (x: dir.x + head.x, y: dir.y + head.y);
+                    var tile = Tile(map, pos);
+                    if (tile == '#' || IsInpossible(tile, dir))
+                        continue;
+                    if (pos == exit)
                     {
-                        var pos = (x: dir.x + head.x, y: dir.y + head.y);
-                        var tile = Tile(map, pos);
-                        if (tile == '#' || IsInpossible(tile, dir))
-                            continue;
-                        if (pos == exit)
-                        {
-                            stack.Push(pos);
-                            results.Add(stack.Count);
-                            best = stack.Reverse().ToList();
-                            continue;
-                        }
-                        if (TilesOk.Contains(tile) && !stack.Contains(pos))
-                        {
-                            var fork = new List<(int x, int y)>();
-                            if (tile != '.')
-                                fork.Add(pos);
-                            if (tile == '>')
-                                pos = (pos.x + 1, pos.y);
-                            if (tile == '<')
-                                pos = (pos.x - 1, pos.y);
-                            if (tile == '^')
-                                pos = (pos.x, pos.y - 1);
-                            if (tile == 'v')
-                                pos = (pos.x, pos.y + 1);
-                            fork.Add(pos);
-                            forks.Add(fork);
-                        }
+                        stack.Push(pos);
+                        results.Add(stack.Count);
+                        best = stack.Reverse().ToList();
+                        continue;
                     }
-                    if (forks.Count > 1)
-                        for (var i = 1; i<forks.Count;i++)
-                        {
-                            var l = forks[i];
-                            var newStack = stack.Clone();
-                            for (var j = 0; j< l.Count; j++)
-                                newStack.Push(l[j]);
-                            newQueue.Enqueue(newStack);
-                        }
-                    if (forks.Count > 0)
+                    if (TilesOk.Contains(tile) && !stack.Contains(pos))
                     {
-                        forks[0].ForEach(p => stack.Push(p));
-                        newQueue.Enqueue(stack);
+                        var fork = new List<(int x, int y)>();
+                        if (tile != '.')
+                            fork.Add(pos);
+                        if (tile == '>')
+                            pos = (pos.x + 1, pos.y);
+                        if (tile == '<')
+                            pos = (pos.x - 1, pos.y);
+                        if (tile == '^')
+                            pos = (pos.x, pos.y - 1);
+                        if (tile == 'v')
+                            pos = (pos.x, pos.y + 1);
+                        fork.Add(pos);
+                        forks.Add(fork);
                     }
                 }
-                bfs = newQueue;
+                if (forks.Count > 1)
+                    for (var i = 1; i < forks.Count; i++)
+                    {
+                        var l = forks[i];
+                        var newStack = stack.Clone();
+                        for (var j = 0; j < l.Count; j++)
+                            newStack.Push(l[j]);
+                        bfs.Enqueue(newStack);
+                    }
+                if (forks.Count > 0)
+                {
+                    forks[0].ForEach(p => stack.Push(p));
+                    bfs.Enqueue(stack);
+                }
             }
             foreach (var p in best)
             {
@@ -198,8 +194,9 @@ namespace Algorithms.AdventOfCode.Y2023.Day23
             var distDico = distances.GroupBy(d => d.Key.p1)
                 .Select(g => (g.Key, neighbourgs: g.Select(p => (neighbourg: p.Key.p2, d: p.Value)).ToList()))
                 .ToDictionary(g => g.Key, g => g.neighbourgs);
-            while (dfs.TryPop(out var item))
+            while (dfs.Count > 0)
             {
+                var item = dfs.Pop();
                 var (pos, distance) = item;
                 if (explored.Contains(pos))
                 {
@@ -255,4 +252,3 @@ namespace Algorithms.AdventOfCode.Y2023.Day23
         }
     }
 }
- 

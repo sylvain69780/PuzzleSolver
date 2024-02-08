@@ -15,8 +15,8 @@ namespace Algorithms.AdventOfCode.Y2023.Day20
             return new PulsePropagationDataModel()
             {
                 ModuleConfiguration = input.Split('\n')
-                            .Select(x => x.Split(new[] { " -> " },StringSplitOptions.None))
-                            .Select(x => (name: x[0], destinations: x[1].Split(new[] { ", " },StringSplitOptions.None)))
+                            .Select(x => x.Split(new[] { " -> " }, StringSplitOptions.None))
+                            .Select(x => (name: x[0], destinations: x[1].Split(new[] { ", " }, StringSplitOptions.None)))
                             .Select(x => x.name[0] == '&' || x.name[0] == '%' ? (type: x.name[0], name: x.name.Substring(1), x.destinations) : (type: ' ', x.name, x.destinations))
                             .Append((' ', "button", broadcaster))
                             .Append((' ', "output", Array.Empty<string>()))
@@ -45,41 +45,37 @@ namespace Algorithms.AdventOfCode.Y2023.Day20
                 bfs.Enqueue(("button", "-low", string.Empty));
                 while (bfs.Count > 0)
                 {
-                    var newQueue = new Queue<(string name, string pulse, string pulseOrigin)>();
-                    while (bfs.TryDequeue(out var module))
+                    var module = bfs.Dequeue();
+                    if (module.name != "button")
+                        if (module.pulse == "-high")
+                            high++;
+                        else
+                            low++;
+                    if (!types.TryGetValue(module.name, out var type))
+                        continue;
+                    if (type == ' ')
                     {
-                        if (module.name != "button")
-                            if (module.pulse == "-high")
-                                high++;
-                            else
-                                low++;
-                        if (!types.TryGetValue(module.name, out var type))
-                            continue;
-                        if (type == ' ')
-                        {
-                            foreach (var item in destinations[module.name])
-                                newQueue.Enqueue((item, module.pulse, module.name));
-                        }
-                        if (type == '%')
-                        {
-                            if (module.pulse == "-high")
-                                continue;
-                            var v = flipFlops[module.name];
-                            flipFlops[module.name] = v == "on" ? "off" : "on";
-                            var p = v == "on" ? "-low" : "-high";
-                            foreach (var item in destinations[module.name])
-                                newQueue.Enqueue((item, p, module.name));
-                        }
-                        if (type == '&')
-                        {
-                            var conjModule = conjonctions[module.name];
-                            conjModule[module.pulseOrigin] = module.pulse;
-                            var pulse = conjModule.All(x => x.Value == "-high") ? "-low" : "-high";
-                            foreach (var targetModule in destinations[module.name])
-                                newQueue.Enqueue((targetModule, pulse, module.name));
-                        }
+                        foreach (var item in destinations[module.name])
+                            bfs.Enqueue((item, module.pulse, module.name));
                     }
-                    bfs = newQueue;
+                    if (type == '%')
+                    {
+                        if (module.pulse == "-high")
+                            continue;
+                        var v = flipFlops[module.name];
+                        flipFlops[module.name] = v == "on" ? "off" : "on";
+                        var p = v == "on" ? "-low" : "-high";
+                        foreach (var item in destinations[module.name])
+                            bfs.Enqueue((item, p, module.name));
+                    }
+                    if (type == '&')
+                    {
+                        var conjModule = conjonctions[module.name];
+                        conjModule[module.pulseOrigin] = module.pulse;
+                        var pulse = conjModule.All(x => x.Value == "-high") ? "-low" : "-high";
+                        foreach (var targetModule in destinations[module.name])
+                            bfs.Enqueue((targetModule, pulse, module.name));
+                    }
                 }
             }
 
@@ -107,43 +103,39 @@ namespace Algorithms.AdventOfCode.Y2023.Day20
                 bfs.Enqueue(("button", "-low", string.Empty));
                 while (bfs.Count > 0 && !found)
                 {
-                    var newQueue = new Queue<(string name, string pulse, string pulseOrigin)>();
-                    while (bfs.TryDequeue(out var module) && !found)
+                    var module = bfs.Dequeue();
+                    if (module.name == "rx")
+                        if (module.pulse == "-low")
+                        {
+                            found = true;
+                            break;
+                        }
+                        else
+                            continue;
+                    var type = types[module.name];
+                    if (type == ' ')
                     {
-                        if (module.name == "rx")
-                            if (module.pulse == "-low")
-                            {
-                                found = true;
-                                break;
-                            }
-                            else
-                                continue;
-                        var type = types[module.name];
-                        if (type == ' ')
-                        {
-                            foreach (var item in destinations[module.name])
-                                newQueue.Enqueue((item, module.pulse, module.name));
-                        }
-                        if (type == '%')
-                        {
-                            if (module.pulse == "-high")
-                                continue;
-                            var v = flipFlops[module.name];
-                            flipFlops[module.name] = v == "on" ? "off" : "on";
-                            var p = v == "on" ? "-low" : "-high";
-                            foreach (var item in destinations[module.name])
-                                newQueue.Enqueue((item, p, module.name));
-                        }
-                        if (type == '&')
-                        {
-                            var conjModule = conjonctions[module.name];
-                            conjModule[module.pulseOrigin] = module.pulse;
-                            var pulse = conjModule.All(x => x.Value == "-high") ? "-low" : "-high";
-                            foreach (var targetModule in destinations[module.name])
-                                newQueue.Enqueue((targetModule, pulse, module.name));
-                        }
+                        foreach (var item in destinations[module.name])
+                            bfs.Enqueue((item, module.pulse, module.name));
                     }
-                    bfs = newQueue;
+                    if (type == '%')
+                    {
+                        if (module.pulse == "-high")
+                            continue;
+                        var v = flipFlops[module.name];
+                        flipFlops[module.name] = v == "on" ? "off" : "on";
+                        var p = v == "on" ? "-low" : "-high";
+                        foreach (var item in destinations[module.name])
+                            bfs.Enqueue((item, p, module.name));
+                    }
+                    if (type == '&')
+                    {
+                        var conjModule = conjonctions[module.name];
+                        conjModule[module.pulseOrigin] = module.pulse;
+                        var pulse = conjModule.All(x => x.Value == "-high") ? "-low" : "-high";
+                        foreach (var targetModule in destinations[module.name])
+                            bfs.Enqueue((targetModule, pulse, module.name));
+                    }
                 }
             }
             yield return count.ToString();
@@ -184,52 +176,48 @@ namespace Algorithms.AdventOfCode.Y2023.Day20
                 while (bfs.Count > 0 && !found)
                 {
                     time++;
-                    var newQueue = new Queue<(string name, string pulse, string pulseOrigin)>();
-                    while (bfs.TryDequeue(out var module) && !found)
+                    var module = bfs.Dequeue();
+                    if (module.name == connectedToRx)
                     {
-                        if (module.name == connectedToRx)
+                        if (module.pulse == "-high" && counters.TryGetValue(module.pulseOrigin, out var list))
                         {
-                            if (module.pulse == "-high" && counters.TryGetValue(module.pulseOrigin, out var list))
-                            {
-                                list.Add((count, time, list.Count > 0 ? count - list[list.Count - 1].count : 0));
-                                if (counters.Values.All(x => x.Count >= 2))
-                                    found = true;
-                            }
-                        }
-                        if (module.name == "rx")
-                            if (module.pulse == "-low")
-                            {
+                            list.Add((count, time, list.Count > 0 ? count - list[list.Count - 1].count : 0));
+                            if (counters.Values.All(x => x.Count >= 2))
                                 found = true;
-                                break;
-                            }
-                            else
-                                continue;
-                        var type = types[module.name];
-                        if (type == ' ')
-                        {
-                            foreach (var item in destinations[module.name])
-                                newQueue.Enqueue((item, module.pulse, module.name));
-                        }
-                        if (type == '%')
-                        {
-                            if (module.pulse == "-high")
-                                continue;
-                            var v = flipFlops[module.name];
-                            flipFlops[module.name] = v == "on" ? "off" : "on";
-                            var p = v == "on" ? "-low" : "-high";
-                            foreach (var item in destinations[module.name])
-                                newQueue.Enqueue((item, p, module.name));
-                        }
-                        if (type == '&')
-                        {
-                            var conjModule = conjonctions[module.name];
-                            conjModule[module.pulseOrigin] = module.pulse;
-                            var pulse = conjModule.All(x => x.Value == "-high") ? "-low" : "-high";
-                            foreach (var targetModule in destinations[module.name])
-                                newQueue.Enqueue((targetModule, pulse, module.name));
                         }
                     }
-                    bfs = newQueue;
+                    if (module.name == "rx")
+                        if (module.pulse == "-low")
+                        {
+                            found = true;
+                            break;
+                        }
+                        else
+                            continue;
+                    var type = types[module.name];
+                    if (type == ' ')
+                    {
+                        foreach (var item in destinations[module.name])
+                            bfs.Enqueue((item, module.pulse, module.name));
+                    }
+                    if (type == '%')
+                    {
+                        if (module.pulse == "-high")
+                            continue;
+                        var v = flipFlops[module.name];
+                        flipFlops[module.name] = v == "on" ? "off" : "on";
+                        var p = v == "on" ? "-low" : "-high";
+                        foreach (var item in destinations[module.name])
+                            bfs.Enqueue((item, p, module.name));
+                    }
+                    if (type == '&')
+                    {
+                        var conjModule = conjonctions[module.name];
+                        conjModule[module.pulseOrigin] = module.pulse;
+                        var pulse = conjModule.All(x => x.Value == "-high") ? "-low" : "-high";
+                        foreach (var targetModule in destinations[module.name])
+                            bfs.Enqueue((targetModule, pulse, module.name));
+                    }
                 }
             }
             var solution = counters.Values.Select(x => x[x.Count - 1].period).Aggregate(1L, (a, b) => (a * b));
