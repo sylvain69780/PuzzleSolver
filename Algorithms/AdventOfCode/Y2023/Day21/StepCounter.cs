@@ -58,14 +58,6 @@ namespace Algorithms.AdventOfCode.Y2023.Day21
             yield return bfs.Count.ToString();
         }
 
-        static char Tile2(string[] map, (int x, int y) pos)
-        {
-            if (pos.x < 0 || pos.x >= map[0].Length || pos.y < 0 || pos.y >= map.Length)
-                return '#';
-            var c = map[pos.y][pos.x];
-            return c == 'S' ? '.' : c;
-        }
-
         static int Mod(int x, int m)
         {
             int r = x % m;
