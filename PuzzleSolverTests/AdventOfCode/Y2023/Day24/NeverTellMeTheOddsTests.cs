@@ -16,8 +16,8 @@ namespace PuzzleSolverTests.AdventOfCode.Y2023.Day24
         public void Test2()
         {
             var solver = new NeverTellMeTheOdds();
-            // Assert.Equal("47", solver.Solve(input, "Part 2").Last());
-            Assert.Equal("16939", solver.Solve(input2, "Part 2").Last());
+            Assert.Equal("47", solver.Solve(input, "Part 2").Last());
+            Assert.Equal("931193307668256", solver.Solve(input2, "Part 2").Last());
         }
 
         const string path = "..\\..\\..\\..\\PuzzleSolver\\wwwroot\\sample-data\\AdventOfCode\\Y2023\\Day24";

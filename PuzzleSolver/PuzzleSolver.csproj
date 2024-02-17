@@ -23,6 +23,7 @@
   <ItemGroup>
     <Folder Include="wwwroot\sample-data\AdventOfCode\Y2023\Day21\" />
     <Folder Include="wwwroot\sample-data\AdventOfCode\Y2023\Day24\" />
+    <Folder Include="wwwroot\sample-data\AdventOfCode\Y2023\Day25\" />
   </ItemGroup>
 
 </Project>
