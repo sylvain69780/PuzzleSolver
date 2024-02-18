@@ -8,8 +8,8 @@ namespace PuzzleSolverTests.AdventOfCode.Y2023.Day25
         public void Test()
         {
             var solver = new Snowverload();
-            Assert.Equal("2", solver.Solve(input, "Part 1").Last());
-            Assert.Equal("16939", solver.Solve(input2, "Part 1").Last());
+            Assert.Equal("54", solver.Solve(input, "Part 1").Last());
+            Assert.Equal("568214", solver.Solve(input2, "Part 1").Last());
         }
 
         const string path = "..\\..\\..\\..\\PuzzleSolver\\wwwroot\\sample-data\\AdventOfCode\\Y2023\\Day25";
