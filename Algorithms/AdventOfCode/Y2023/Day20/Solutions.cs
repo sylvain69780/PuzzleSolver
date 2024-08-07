@@ -63,6 +63,10 @@ namespace Algorithms.AdventOfCode.Y2023.Day20
                             bfs.Enqueue((targetModule, pulse, module.name));
                     }
                 }
+                yield return new State
+                {
+                    Message = $"This is step {i} ... still searching"
+                };
             }
             yield return new State() { 
                 Message = (high * low).ToString() 

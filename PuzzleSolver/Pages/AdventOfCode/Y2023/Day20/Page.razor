@@ -8,6 +8,11 @@
 
 <h1>@title</h1>
 
+<input type="range" id="delayRange" @bind=animationDuration min="0" max="1000">
+<div class="my-4">
+    <span class="p-2 rounded bg-light">@(animationDuration == 0 ? "Fastest" : animationDuration == 1000 ? "Animation Stopped" : $"Run a step every {animationDuration} ms")</span>
+</div>
+
 @if (input != string.Empty)
 @foreach (var method in methods)
 {
@@ -22,6 +27,7 @@
 
     private string input = string.Empty;
     private string solution = string.Empty;
+    private int animationDuration = 500;
 
     protected override async Task OnInitializedAsync()
     {
@@ -31,5 +37,17 @@
 
     }
 
-    private void Solve(Func<Input, IEnumerable<State>> part) => solution = part(Parser.Parse(input)).Last().Message;
+    private async void Solve(Func<Input, IEnumerable<State>> part)
+    {
+        foreach (var state in  part(Parser.Parse(input)))
+        {
+            solution = state.Message;
+            if (animationDuration > 0)
+            {
+                StateHasChanged();
+                await Task.Delay(animationDuration);
+            }
+        }
+        StateHasChanged();
+    }
 }
