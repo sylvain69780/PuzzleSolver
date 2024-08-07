@@ -213,6 +213,10 @@ namespace Algorithms.AdventOfCode.Y2023.Day20
                             bfs.Enqueue((targetModule, pulse, module.name));
                     }
                 }
+                yield return new State
+                {
+                    Message = $"This is step {count} ... still searching"
+                };
             }
             var solution = counters.Values.Select(x => x[x.Count - 1].period).Aggregate(1L, (a, b) => (a * b));
             yield return new State()
