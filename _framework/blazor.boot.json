@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "PuzzleSolver",
   "resources": {
-    "hash": "sha256-4jOhDKygPqM06uc2Ipgdt6YlNwHOjZXAWYP400Zczdk=",
+    "hash": "sha256-Lr1K+AZSo2qUpR+nXtnpobfotEyMjJ36JhQcb/wptMI=",
     "jsModuleNative": {
       "dotnet.native.8.0.7.pvkr2na9g4.js": "sha256-tFsxPBbhkdn6GKNBKvCRLzrfAHdyM86odYTe0MtrwMk="
     },
@@ -17,7 +17,7 @@
       "icudt_no_CJK.dat": "sha256-L7sV7NEYP37/Qr2FPCePo5cJqRgTXRwGHuwF5Q+0Nfs="
     },
     "assembly": {
-      "Algorithms.wasm": "sha256-Rnvi5BW+ufqWTadALYTqN/mDmaiwiCKAQoIErZMVFE0=",
+      "Algorithms.wasm": "sha256-InDujQ5usVuL+3rREC8uY9+AAngbkMYiAQaEsGdHr+E=",
       "Microsoft.AspNetCore.Components.wasm": "sha256-ULuNrAAde1QhAQwAwKyUx4NE2lNNDD9AP2Q0HA73MAM=",
       "Microsoft.AspNetCore.Components.Web.wasm": "sha256-ivj7kxN8rrhTm1UV0H7dhsOewu6rhATFU2ZAG/YKLvA=",
       "Microsoft.AspNetCore.Components.WebAssembly.wasm": "sha256-Ws5szf6fWPAXna+XyWsAhavx+WDFcA/91DQ7iPRPCMs=",
@@ -33,7 +33,7 @@
       "Microsoft.JSInterop.wasm": "sha256-lXwhdv0Is9FMH/j0+WH3zoNWAGLbVaONtGucJ/4URQ0=",
       "Microsoft.JSInterop.WebAssembly.wasm": "sha256-CQVLCKiSxLN5ghyJZG3mhnMGRROdqrbNUjtAXB0nWb8=",
       "netstandard.wasm": "sha256-hCxiXmA/7yikkO3HvIeBmy53lpuhtOKHtmDnAwDJcYg=",
-      "PuzzleSolver.wasm": "sha256-ZPReCin77whMvTDTMj7L7URIL56zBnlaex5yxnrGYsw=",
+      "PuzzleSolver.wasm": "sha256-SizUxpXwCgfZJHtI6JQ15unej9oBj4OqYpmfr59u4XY=",
       "System.Collections.Concurrent.wasm": "sha256-RYqcvur83AfYa8I9lG3zTV2J7kGDZ7CKDz4kvLIX7nE=",
       "System.Collections.wasm": "sha256-LjHTaIjfhDZGABdU0zYWVmD6C7lu851m1HSVAwTTJb4=",
       "System.ComponentModel.wasm": "sha256-TglF9Cma6UOoLFYnvaWKbPJjgEG7PgkN5biRsqmZKiQ=",
