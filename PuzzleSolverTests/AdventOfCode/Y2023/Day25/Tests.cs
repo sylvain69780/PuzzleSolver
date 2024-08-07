@@ -2,14 +2,13 @@
 
 namespace PuzzleSolverTests.AdventOfCode.Y2023.Day25
 {
-    public class SnowverloadTests
+    public class Tests
     {
         [Fact]
         public void Test()
         {
-            var solver = new Snowverload();
-            Assert.Equal("54", solver.Solve(input, "Part 1").Last());
-            Assert.Equal("568214", solver.Solve(input2, "Part 1").Last());
+            Assert.Equal("54", Solutions.PartOne(Parser.Parse(input)).Last().Message);
+            Assert.Equal("568214", Solutions.PartOne(Parser.Parse(input2)).Last().Message);
         }
 
         const string path = "..\\..\\..\\..\\PuzzleSolver\\wwwroot\\sample-data\\AdventOfCode\\Y2023\\Day25";

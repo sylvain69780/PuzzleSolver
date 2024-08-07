@@ -1,21 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 
 namespace Algorithms.AdventOfCode.Y2023.Day22
 {
-    public class SandSlabs : SolutionBase<SandSlabsDataModel>
-    {
-        protected  SandSlabsDataModel Parse(string input)
-        {
-            return new SandSlabsDataModel()
-            {
-                Bricks = input.Split('\n').Select(x => Regex.Match(x, @"(\d+),(\d+),(\d+)~(\d+),(\d+),(\d+)"))
-                .Select(x => (start: (x: long.Parse(x.Groups[1].Value), y: long.Parse(x.Groups[2].Value), z: long.Parse(x.Groups[3].Value)),
-                                end: (x: long.Parse(x.Groups[4].Value), y: long.Parse(x.Groups[5].Value), z: long.Parse(x.Groups[6].Value)))).ToList()
-            };
-        }
 
+    [Solution("Sand Slabs")]
+    public class Solutions
+    {
         static List<(long x, long y, long z)> Cubes(((long x, long y, long z) start, (long x, long y, long z) end) brick)
         {
             var cubes = new List<(long x, long y, long z)>();
@@ -28,7 +19,7 @@ namespace Algorithms.AdventOfCode.Y2023.Day22
             return cubes;
         }
         [SolutionMethod("Part 1")]
-        public static IEnumerable<string> PartOne(SandSlabsDataModel model)
+        public static IEnumerable<State> PartOne(Input model)
         {
             var bricks = model.Bricks;
             List<(int brick, int supports)> supports = SimulateFall(bricks);
@@ -40,7 +31,7 @@ namespace Algorithms.AdventOfCode.Y2023.Day22
                 if (supported.Count == 0 || supported.All(s => supports.Any(ss => ss.brick != i && ss.supports == s)))
                     count++;
             }
-            yield return count.ToString();
+            yield return new State() { Message = count.ToString() };
         }
 
         private static List<(int brick, int supports)> SimulateFall(List<((long x, long y, long z) start, (long x, long y, long z) end)> bricks)
@@ -81,7 +72,7 @@ namespace Algorithms.AdventOfCode.Y2023.Day22
             return supports;
         }
         [SolutionMethod("Part 2")]
-        public static IEnumerable<string> PartTwo(SandSlabsDataModel model)
+        public static IEnumerable<State> PartTwo(Input model)
         {
             var bricks = model.Bricks;
             List<(int brick, int supports)> supports = SimulateFall(bricks);
@@ -106,7 +97,10 @@ namespace Algorithms.AdventOfCode.Y2023.Day22
                     }
                 }
             }
-            yield return count.ToString();
+            yield return new State()
+            {
+                Message = count.ToString()
+            };
         }
     }
 }

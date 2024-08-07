@@ -2,22 +2,21 @@
 
 namespace PuzzleSolverTests.AdventOfCode.Y2023.Day24
 {
-    public class NeverTellMeTheOddsTests
+    public class Tests
     {
         [Fact]
         public void Test()
         {
-            var solver = new NeverTellMeTheOdds();
-            Assert.Equal("2", solver.Solve(input, "Part 1").Last());
-            Assert.Equal("16939", solver.Solve(input2, "Part 1").Last());
+            Assert.Equal("2", Solutions.PartOne(Parser.Parse(input)).Last().Message);
+            Assert.Equal("16939", Solutions.PartOne(Parser.Parse(input2)).Last().Message);
         }
 
         [Fact]
         public void Test2()
         {
-            var solver = new NeverTellMeTheOdds();
-            Assert.Equal("47", solver.Solve(input, "Part 2").Last());
-            Assert.Equal("931193307668256", solver.Solve(input2, "Part 2").Last());
+            var solver = new Solutions();
+            Assert.Equal("47", Solutions.PartTwo(Parser.Parse(input)).Last().Message);
+            Assert.Equal("931193307668256", Solutions.PartTwo(Parser.Parse(input2)).Last().Message);
         }
 
         const string path = "..\\..\\..\\..\\PuzzleSolver\\wwwroot\\sample-data\\AdventOfCode\\Y2023\\Day24";

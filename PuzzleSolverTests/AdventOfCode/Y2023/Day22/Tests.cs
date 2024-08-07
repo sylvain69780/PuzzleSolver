@@ -2,21 +2,19 @@
 
 namespace PuzzleSolverTests.AdventOfCode.Y2023.Day22
 {
-    public class SandSlabsTests
+    public class Tests
     {
         [Fact]
         public void Test()
         {
-            var solver = new SandSlabs();
-            Assert.Equal("5", solver.Solve(input, "Part 1").Last());
-            Assert.Equal("509", solver.Solve(input2, "Part 1").Last());
+            Assert.Equal("5", Solutions.PartOne(Parser.Parse(input)).Last().Message);
+            Assert.Equal("509", Solutions.PartOne(Parser.Parse(input2)).Last().Message);
         }
         [Fact]
         public void Test2()
         {
-            var solver = new SandSlabs();
-            Assert.Equal("7", solver.Solve(input, "Part 2").Last());
-            Assert.Equal("102770", solver.Solve(input2, "Part 2").Last());
+            Assert.Equal("7", Solutions.PartTwo(Parser.Parse(input)).Last().Message);
+            Assert.Equal("102770",Solutions.PartTwo(Parser.Parse(input2)).Last().Message);
         }
 
         const string path = "..\\..\\..\\..\\PuzzleSolver\\wwwroot\\sample-data\\AdventOfCode\\Y2023\\Day22";

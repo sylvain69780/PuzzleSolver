@@ -5,34 +5,12 @@ using System.Text;
 
 namespace Algorithms.AdventOfCode.Y2023.Day25
 {
-    public class SnowverloadInput
+    [Solution("Snowverload")]
+    public class Solutions 
     {
-        public List<string> Nodes { get; set; }
-        public List<(string a,string b)> Edges { get; set; }
-    }
-    public class Snowverload : SolutionBase<SnowverloadInput>
-    {
-        protected  SnowverloadInput Parse(string input)
-        {
-            var lines = input.Split('\n');
-            var nodes = new List<string>();
-            var edges = new List<(string a, string b)>();
-            foreach (var line in lines)
-            {
-                var rec = line.Split(new string[] { ": " },StringSplitOptions.None);
-                var node = rec[0];
-                var targets = rec[1].Split(' ');
-                nodes.Add(node);
-                foreach (var node2 in targets)
-                {
-                    edges.Add((node, node2));
-                }
-            }
-            return new SnowverloadInput { Nodes = nodes, Edges = edges, };
-        }
-
+    
         [SolutionMethod("Part 1")]
-        public static IEnumerable<string> PartOne(SnowverloadInput input)
+        public static IEnumerable<State> PartOne(Input input)
         {
             var neighbours = input.Edges.GroupBy(x => x.a).ToDictionary(x => x.Key, x => x.Select(y => y.b).ToArray());
             var node = input.Nodes[0];
@@ -70,7 +48,10 @@ namespace Algorithms.AdventOfCode.Y2023.Day25
                 if (found)
                     result = (nodes[0].Count(c => c == '-')+1) * (nodes[1].Count(c => c == '-') + 1);
             }
-            yield return result.ToString();
+            yield return new State
+            {
+                Message = result.ToString()
+            };
         }
     }
 }

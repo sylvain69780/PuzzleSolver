@@ -22,8 +22,6 @@
 
     private string solution = string.Empty;
 
-    private Solutions solutions = new ();
-
     private List<(string Name, Func<Input, IEnumerable<State>> Method)> methods = new();
 
     protected override async Task OnInitializedAsync()

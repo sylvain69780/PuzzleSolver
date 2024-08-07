@@ -4,22 +4,9 @@ using System.Text;
 
 namespace Algorithms.AdventOfCode.Y2023.Day23
 {
-    public static class StackExtension
+    [Solution("A Long Walk")]
+    public class Solutions 
     {
-        public static Stack<T> Clone<T>(this Stack<T> source)
-        {
-            return new Stack<T>(source.Reverse());
-        }
-    }
-    public class ALongWalk : SolutionBase<ALongWalkDataModel>
-    {
-        protected  ALongWalkDataModel Parse(string input)
-        {
-            return new ALongWalkDataModel
-            {
-                Map = input.Split('\n')
-            };
-        }
 
         static (int x, int y)[] directions = new (int x, int y)[] { (1, 0), (-1, 0), (0, 1), (0, -1) };
 
@@ -42,7 +29,7 @@ namespace Algorithms.AdventOfCode.Y2023.Day23
             return map[pos.y][pos.x];
         }
         [SolutionMethod("Part 1")]
-        public static IEnumerable<string> PartOne(ALongWalkDataModel model)
+        public static IEnumerable<State> PartOne(Input model)
         {
             var map = model.Map;
             var start = (x: 1, y: 0);
@@ -110,13 +97,16 @@ namespace Algorithms.AdventOfCode.Y2023.Day23
                 map[p.y] = line.ToString();
                 var test = string.Join("\n", map);
             }
-            yield return (results.Max() - 1).ToString();
+            yield return new State
+            {
+                Message = (results.Max() - 1).ToString()
+            };
         }
 
         // https://www.reddit.com/r/adventofcode/comments/18oy4pc/comment/kfyvp2g/
 
         [SolutionMethod("Part 2")]
-        public static IEnumerable<string> PartTwo(ALongWalkDataModel model)
+        public static IEnumerable<State> PartTwo(Input model)
         {
             var bfsMap = model.Map.Select(l => l.ToArray()).ToArray();
             var start = (x: 1, y: 0);
@@ -228,7 +218,10 @@ namespace Algorithms.AdventOfCode.Y2023.Day23
                 }
             }
 
-            yield return longestDistance.ToString();
+            yield return new State
+            {
+                Message = longestDistance.ToString()
+            };
         }
 
 

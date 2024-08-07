@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Algorithms.AdventOfCode.Y2023.Day22
 {
-    public class SandSlabsDataModel
+    public class Input
     {
         public List<((long x, long y, long z) start, (long x, long y, long z) end)> Bricks { get; set; }
     }

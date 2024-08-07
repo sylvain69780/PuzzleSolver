@@ -6,33 +6,12 @@ using System.Security.Cryptography;
 
 namespace Algorithms.AdventOfCode.Y2023.Day24
 {
-    public class NeverTellMeTheOddsInput
+    [Solution("Never Tell Me The Odds")]
+    public class Solutions 
     {
-        public ((long x, long y, long z) position, (long x, long y, long z) velocity)[] Hailstones { get; set; }
-    }
-    public class NeverTellMeTheOdds : SolutionBase<NeverTellMeTheOddsInput>
-    {
-        protected  NeverTellMeTheOddsInput Parse(string input)
-        {
-            (long x, long y, long z) ParsePoint(string str)
-            {
-                var r = str.Split(new string[] { ", " }, StringSplitOptions.None).Select(x => long.Parse(x)).ToArray();
-                return (x: r[0], y: r[1], z: r[2]);
-            }
-            var lines = input.Split('\n');
-            var value = lines
-                .Select(l => l.Split(new string[] { " @ " }, StringSplitOptions.None))
-                .Select(l => (ParsePoint(l[0]), ParsePoint(l[1])))
-                .ToArray();
-
-            return new NeverTellMeTheOddsInput()
-            {
-                Hailstones = value
-            };
-        }
 
         [SolutionMethod("Part 1")]
-        public static IEnumerable<string> PartOne(NeverTellMeTheOddsInput input)
+        public static IEnumerable<State> PartOne(Input input)
         {
             var stones = input.Hailstones;
             (long lower, long upper) = stones.Length <= 5 ? (7, 27) : (200000000000000, 400000000000000);
@@ -91,11 +70,14 @@ namespace Algorithms.AdventOfCode.Y2023.Day24
                         counter++;
                 }
 
-            yield return counter.ToString();
+            yield return new State
+            {
+                Message = counter.ToString()
+            };
         }
 
         [SolutionMethod("Part 2")]
-        public static IEnumerable<string> PartTwo(NeverTellMeTheOddsInput input)
+        public static IEnumerable<State> PartTwo(Input input)
         {
             var stones = input.Hailstones;
 
@@ -213,7 +195,10 @@ var zc = cz1 - (zm * t1);
 
             */
 
-            yield return response.ToString();
+            yield return new State
+            {
+                Message = response.ToString()
+            };
         }
 
         public static BigInteger[] SolveCramer(BigInteger[][] equations)
