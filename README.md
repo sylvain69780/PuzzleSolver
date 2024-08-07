@@ -6,5 +6,5 @@ A puzzle is a namespace, where we can found only 4 classes
 * Solutions classes with all methods used to solve to puzzle
 * A Parser class to parse the text input of the puzzle.
 
-Using this naming convention creating a new Blazor page is just a matter of cut and paste en change the namespace.
+Using a good naming convention, creating a new Blazor page is just a matter of cut and paste en change the namespace.
 A use of reflexion allows to get the page title and methods names dynamically.
