@@ -10,7 +10,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="AdventOfCode\Y2023\Day21\StepCounterTests.cs" />
     <Compile Remove="AdventOfCode\Y2023\Day22\SandSlabsTests.cs" />
     <Compile Remove="AdventOfCode\Y2023\Day23\ALongWalkTests.cs" />
     <Compile Remove="AdventOfCode\Y2023\Day24\NeverTellMeTheOddsTests.cs" />
@@ -35,7 +34,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="AdventOfCode\Y2023\Day21\" />
     <Folder Include="AdventOfCode\Y2023\Day22\" />
     <Folder Include="AdventOfCode\Y2023\Day23\" />
     <Folder Include="AdventOfCode\Y2023\Day24\" />

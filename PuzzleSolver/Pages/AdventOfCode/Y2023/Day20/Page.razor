@@ -1,4 +1,4 @@
-﻿@page "/counter"
+﻿@page "/AdventOfCode/Y2023/Day20"
 @using Algorithms.AdventOfCode
 @using Algorithms.AdventOfCode.Y2023.Day20
 @using System.Reflection
@@ -39,7 +39,7 @@
             var customAttribute = (SolutionMethodAttribute)Attribute.GetCustomAttribute(method, typeof(SolutionMethodAttribute))!;
             methods.Add((customAttribute.Description, (Func<Input, IEnumerable<State>>)method.CreateDelegate(typeof(Func<Input, IEnumerable<State>>))));
         }
-        var s = await Http.GetStringAsync("sample-data/AdventOfCode/Y2023/Day20/PulsePropagation_full.txt");
+        var s = await Http.GetStringAsync($"sample-data/AdventOfCode/Y2023/Day20/{title.Replace(" ","")}_full.txt");
         input = s.Replace("\r", "");
     }
 

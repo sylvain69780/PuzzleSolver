@@ -3,21 +3,10 @@ using System.Linq;
 
 namespace Algorithms.AdventOfCode.Y2023.Day21
 {
-    public class StepCounter 
+    [Solution("Step Counter")]
+    public class Solutions 
     {
-        protected  StepCounterDataModel Parse(string input)
-        {
-            var map = input.Split('\n');
-            var pos = map.Select((s, y) => (s, y)).Where(l => l.s.Contains('S')).Select(l => (x: l.s.IndexOf('S'), l.y)).Single();
-            return new StepCounterDataModel
-            {
-                Map = map,
-                Pos = pos
-            };
-        }
-
         static readonly (int x, int y)[] Directions = new (int x, int y)[] {(1, 0), (-1, 0), (0, 1), (0, -1)};
-
         static char Tile(string[] map, (int x, int y) pos)
         {
             if (pos.x < 0 || pos.x >= map[0].Length || pos.y < 0 || pos.y >= map.Length)
@@ -27,7 +16,7 @@ namespace Algorithms.AdventOfCode.Y2023.Day21
         }
         [SolutionMethod("Part 1")]
 
-        public static IEnumerable<string> PartOne(StepCounterDataModel model)
+        public static IEnumerable<State> PartOne(Input model)
         {
             var start = model.Pos;
             var map = model.Map;
@@ -55,7 +44,9 @@ namespace Algorithms.AdventOfCode.Y2023.Day21
                 newQueue.Clear();
                 grid.Clear();
             }
-            yield return bfs.Count.ToString();
+            yield return new State() { 
+                Message = bfs.Count.ToString() 
+            };
         }
 
         static int Mod(int x, int m)
@@ -70,7 +61,7 @@ namespace Algorithms.AdventOfCode.Y2023.Day21
             return c == 'S' ? '.' : c;
         }
         [SolutionMethod("Part 2")]
-        public static IEnumerable<string> PartTwo(StepCounterDataModel model)
+        public static IEnumerable<State> PartTwo(Input model)
         {
             var start = model.Pos;
             var map = model.Map;
@@ -143,7 +134,9 @@ namespace Algorithms.AdventOfCode.Y2023.Day21
                 var c = 4 + i * 4 * 2 ; // 4 12
                 res += gridv[2, 1] * c;
             }
-            yield return res.ToString();
+            yield return new State() {
+               Message = res.ToString()
+            };
         }
     }
 }
