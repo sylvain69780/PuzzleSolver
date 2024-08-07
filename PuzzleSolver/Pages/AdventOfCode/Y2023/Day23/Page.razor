@@ -1,0 +1,48 @@
+﻿@page "/AdventOfCode/Y2023/Day23"
+@using Algorithms.AdventOfCode
+@using Algorithms.AdventOfCode.Y2023.Day23
+@using System.Reflection
+@inject HttpClient Http
+
+<PageTitle>@title</PageTitle>
+
+<h1>@title</h1>
+
+@foreach (var method in methods)
+{
+    <button class="btn btn-primary" @onclick="(e) => IncrementCount(method.Method)">Solve @method.Name</button>
+}
+
+<p class="p-2" role="status">Solution: @solution</p>
+
+@code {
+    private string title = string.Empty;
+
+    private string input = string.Empty;
+
+    private string solution = string.Empty;
+
+    private List<(string Name, Func<Input, IEnumerable<State>> Method)> methods = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        Type type = typeof(Solutions);
+        title = ((SolutionAttribute)Attribute.GetCustomAttribute(type, typeof(SolutionAttribute))!).Description;
+        // Get all methods with the specified attribute
+        MethodInfo[] methodsWithAttribute = type.GetMethods()
+            .Where(method => Attribute.IsDefined(method, typeof(SolutionMethodAttribute)))
+            .ToArray();
+        foreach (var method in methodsWithAttribute)
+        {
+            var customAttribute = (SolutionMethodAttribute)Attribute.GetCustomAttribute(method, typeof(SolutionMethodAttribute))!;
+            methods.Add((customAttribute.Description, (Func<Input, IEnumerable<State>>)method.CreateDelegate(typeof(Func<Input, IEnumerable<State>>))));
+        }
+        var s = await Http.GetStringAsync($"sample-data/AdventOfCode/Y2023/Day23/{title.Replace(" ","")}_full.txt");
+        input = s.Replace("\r", "");
+    }
+
+    private void IncrementCount(Func<Input, IEnumerable<State>> part)
+    {
+        solution = part(Parser.Parse(input)).Last().Message;
+    }
+}
