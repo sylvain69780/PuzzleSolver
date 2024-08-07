@@ -3,7 +3,11 @@
 @using Algorithms.AdventOfCode.Y2023.Day20
 @inject HttpClient Http
 
-<GenericPage TInput="Input" TParser="Parser" TSolutions="Solutions" TState="State" Input="@input"/>
+<GenericPage TInput="Input" TParser="Parser" TSolutions="Solutions" TState="State" Input="@input">
+    <ItemTemplate>
+        <p>Rendering state : @context.Message</p>
+    </ItemTemplate>
+</GenericPage>
 
 @code 
 {

@@ -30,15 +30,24 @@
         </div>
     }
 }
-
-<p class="p-2" role="status">Solution: @solution</p>
+@if (state is not null)
+{
+    <p class="p-2" role="status">Solution: @state.Message</p>
+    if ( ItemTemplate is not null)
+    {
+        @ItemTemplate(state)
+    }
+}
 
 @code {
+    [Parameter]
+    public string Input { get; set; } = string.Empty;
+    [Parameter]
+    public RenderFragment<TState>? ItemTemplate { get; set; }
+
     private string title = PuzzleHelper.GetPuzzleTitle(typeof(TSolutions));
     private List<(string Name, Func<TInput, IEnumerable<TState>> Method)> methods = PuzzleHelper.GetPuzzleMethods<TInput, TState>(typeof(TSolutions));
-    [Parameter]
-    public string Input { get; set; }  = string.Empty;
-    private string solution = string.Empty;
+    private TState? state;
     private int animationDuration = 500;
     private bool isProcessing;
     private CancellationTokenSource? cts;
@@ -55,16 +64,16 @@
     private async Task Solve(IEnumerable<TState> steps,CancellationToken token)
     {
         isProcessing = true;
-        foreach (var state in steps)
+        foreach (var s in steps)
         {
-            solution = state.Message;
+            state = s;
             if (animationDuration > 0)
             {
                 StateHasChanged();
                 await Task.Delay(animationDuration);
                 if (token.IsCancellationRequested)
                 {
-                    solution = "Processing Cancelled";
+                    state.Message = "Processing Cancelled";
                     break;
                 }
             }
