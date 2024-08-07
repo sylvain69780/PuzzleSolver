@@ -7,25 +7,11 @@ using System.Xml.Linq;
 
 namespace Algorithms.AdventOfCode.Y2023.Day20
 {
-    public class PulsePropagation : SolutionBase<PulsePropagationDataModel>
+    [Solution("Pulse Propagation")]
+    public class Solutions 
     {
-        protected override PulsePropagationDataModel Parse(string input)
-        {
-            var broadcaster = new string[] { "broadcaster" };
-            return new PulsePropagationDataModel()
-            {
-                ModuleConfiguration = input.Split('\n')
-                            .Select(x => x.Split(new[] { " -> " }, StringSplitOptions.None))
-                            .Select(x => (name: x[0], destinations: x[1].Split(new[] { ", " }, StringSplitOptions.None)))
-                            .Select(x => x.name[0] == '&' || x.name[0] == '%' ? (type: x.name[0], name: x.name.Substring(1), x.destinations) : (type: ' ', x.name, x.destinations))
-                            .Append((' ', "button", broadcaster))
-                            .Append((' ', "output", Array.Empty<string>()))
-                            .ToArray(),
-            };
-        }
-
         [SolutionMethod("Part 1")]
-        public static IEnumerable<string> PartOne(PulsePropagationDataModel input)
+        public static IEnumerable<State> PartOne(Input input)
         {
             var configuraton = input.ModuleConfiguration;
             var flipFlops = configuraton
@@ -78,10 +64,11 @@ namespace Algorithms.AdventOfCode.Y2023.Day20
                     }
                 }
             }
-
-            yield return (high * low).ToString();
+            yield return new State() { 
+                Message = (high * low).ToString() 
+            };
         }
-        static IEnumerable<string> PartTwoNaive(PulsePropagationDataModel input)
+        static IEnumerable<State> PartTwoNaive(Input input)
         {
             var configuraton = input.ModuleConfiguration;
             var flipFlops = configuraton
@@ -138,11 +125,14 @@ namespace Algorithms.AdventOfCode.Y2023.Day20
                     }
                 }
             }
-            yield return count.ToString();
+            yield return new State()
+            {
+                Message = count.ToString()
+            };
         }
 
         [SolutionMethod("Part 2")]
-        public static IEnumerable<string> PartTwo(PulsePropagationDataModel input)
+        public static IEnumerable<State> PartTwo(Input input)
         {
             var configuration = input.ModuleConfiguration;
             var flipFlops = configuration
@@ -221,9 +211,10 @@ namespace Algorithms.AdventOfCode.Y2023.Day20
                 }
             }
             var solution = counters.Values.Select(x => x[x.Count - 1].period).Aggregate(1L, (a, b) => (a * b));
-            yield return solution.ToString();
+            yield return new State()
+            {
+                Message = solution.ToString()
+            };
         }
-
-
     }
 }
