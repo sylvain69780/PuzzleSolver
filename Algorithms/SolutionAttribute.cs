@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Algorithms.AdventOfCode
+namespace Algorithms
 {
     [AttributeUsage(AttributeTargets.Class)]
     public class SolutionAttribute : Attribute

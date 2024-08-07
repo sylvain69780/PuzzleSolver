@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Algorithms.AdventOfCode
+namespace Algorithms
 {
     [AttributeUsage(AttributeTargets.Method)]
     public class SolutionMethodAttribute : Attribute

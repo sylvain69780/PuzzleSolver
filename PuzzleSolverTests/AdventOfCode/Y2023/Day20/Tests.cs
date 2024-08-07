@@ -1,4 +1,4 @@
-﻿using Algorithms.AdventOfCode;
+﻿using Algorithms;
 using Algorithms.AdventOfCode.Y2023.Day20;
 using System.IO;
 using System.Reflection;

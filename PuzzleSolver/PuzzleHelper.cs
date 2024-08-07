@@ -1,4 +1,4 @@
-﻿using Algorithms.AdventOfCode;
+﻿using Algorithms;
 using System.Reflection;
 
 namespace PuzzleSolver
