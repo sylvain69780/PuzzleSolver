@@ -12,7 +12,7 @@ namespace Algorithms.AdventOfCode.Y2023.Day24
     }
     public class NeverTellMeTheOdds : SolutionBase<NeverTellMeTheOddsInput>
     {
-        protected override NeverTellMeTheOddsInput Parse(string input)
+        protected  NeverTellMeTheOddsInput Parse(string input)
         {
             (long x, long y, long z) ParsePoint(string str)
             {

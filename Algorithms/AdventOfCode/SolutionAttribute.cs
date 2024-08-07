@@ -2,12 +2,12 @@
 
 namespace Algorithms.AdventOfCode
 {
-    [AttributeUsage(AttributeTargets.Method)]
-    public class SolutionMethodAttribute : Attribute
+    [AttributeUsage(AttributeTargets.Class)]
+    public class SolutionAttribute : Attribute
     {
         public string Description { get; }
 
-        public SolutionMethodAttribute(string description)
+        public SolutionAttribute(string description)
         {
             Description = description;
         }

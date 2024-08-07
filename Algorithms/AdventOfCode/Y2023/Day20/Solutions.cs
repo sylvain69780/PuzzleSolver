@@ -8,7 +8,7 @@ using System.Xml.Linq;
 namespace Algorithms.AdventOfCode.Y2023.Day20
 {
     [Solution("Pulse Propagation")]
-    public class Solutions 
+    public class Solutions
     {
         [SolutionMethod("Part 1")]
         public static IEnumerable<State> PartOne(Input input)

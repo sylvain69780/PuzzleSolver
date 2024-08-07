@@ -3,9 +3,9 @@ using System.Linq;
 
 namespace Algorithms.AdventOfCode.Y2023.Day21
 {
-    public class StepCounter : SolutionBase<StepCounterDataModel>
+    public class StepCounter 
     {
-        protected override StepCounterDataModel Parse(string input)
+        protected  StepCounterDataModel Parse(string input)
         {
             var map = input.Split('\n');
             var pos = map.Select((s, y) => (s, y)).Where(l => l.s.Contains('S')).Select(l => (x: l.s.IndexOf('S'), l.y)).Single();

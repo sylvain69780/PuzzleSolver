@@ -13,7 +13,7 @@ namespace Algorithms.AdventOfCode.Y2023.Day23
     }
     public class ALongWalk : SolutionBase<ALongWalkDataModel>
     {
-        protected override ALongWalkDataModel Parse(string input)
+        protected  ALongWalkDataModel Parse(string input)
         {
             return new ALongWalkDataModel
             {

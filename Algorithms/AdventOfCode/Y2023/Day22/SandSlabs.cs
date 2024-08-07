@@ -6,7 +6,7 @@ namespace Algorithms.AdventOfCode.Y2023.Day22
 {
     public class SandSlabs : SolutionBase<SandSlabsDataModel>
     {
-        protected override SandSlabsDataModel Parse(string input)
+        protected  SandSlabsDataModel Parse(string input)
         {
             return new SandSlabsDataModel()
             {

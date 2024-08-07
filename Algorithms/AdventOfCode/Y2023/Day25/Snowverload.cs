@@ -12,7 +12,7 @@ namespace Algorithms.AdventOfCode.Y2023.Day25
     }
     public class Snowverload : SolutionBase<SnowverloadInput>
     {
-        protected override SnowverloadInput Parse(string input)
+        protected  SnowverloadInput Parse(string input)
         {
             var lines = input.Split('\n');
             var nodes = new List<string>();

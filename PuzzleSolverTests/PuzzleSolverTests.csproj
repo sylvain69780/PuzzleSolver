@@ -10,6 +10,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="AdventOfCode\Y2023\Day21\StepCounterTests.cs" />
+    <Compile Remove="AdventOfCode\Y2023\Day22\SandSlabsTests.cs" />
+    <Compile Remove="AdventOfCode\Y2023\Day23\ALongWalkTests.cs" />
+    <Compile Remove="AdventOfCode\Y2023\Day24\NeverTellMeTheOddsTests.cs" />
+    <Compile Remove="AdventOfCode\Y2023\Day25\SnowverloadTests.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.6.0" />
     <PackageReference Include="xunit" Version="2.4.2" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5">
@@ -24,6 +32,14 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Algorithms\Algorithms.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="AdventOfCode\Y2023\Day21\" />
+    <Folder Include="AdventOfCode\Y2023\Day22\" />
+    <Folder Include="AdventOfCode\Y2023\Day23\" />
+    <Folder Include="AdventOfCode\Y2023\Day24\" />
+    <Folder Include="AdventOfCode\Y2023\Day25\" />
   </ItemGroup>
 
 </Project>

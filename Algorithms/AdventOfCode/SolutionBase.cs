@@ -6,7 +6,7 @@ using System.Reflection;
 
 namespace Algorithms.AdventOfCode
 {
-    public abstract class SolutionBase<T> : ISolution
+    public abstract class SolutionBase<T> 
     {
         private Dictionary<string, Func<T, IEnumerable<string>>> cachedParts;
         private Dictionary<string, Func<T, IEnumerable<string>>> Parts()
@@ -31,13 +31,5 @@ namespace Algorithms.AdventOfCode
         }
 
         public IEnumerable<string> Strategies => Parts().Keys;
-
-        public IEnumerable<string> Solve(string input, string part)
-        {
-            var algo = Parts()[part];
-            var data = Parse(input);
-            return algo(data);
-        }
-        protected abstract T Parse(string input);
     }
 }
