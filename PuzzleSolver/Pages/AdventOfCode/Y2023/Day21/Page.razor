@@ -3,15 +3,16 @@
 @using Algorithms.AdventOfCode.Y2023.Day21
 @inject HttpClient Http
 
-<GenericPage TInput="Input" TParser="Parser" TSolutions="Solutions" TState="State" Input="@input"/>
+<StepController TInput="Input" TSolutions="Solutions" TState="State" Input="@input"/>
 
 @code 
 {
-    private string input = string.Empty;
+    private Input? input;
     protected override async Task OnInitializedAsync()
     {
-       // await Task.Delay(5000);
+        // await Task.Delay(5000);
         var s = await Http.GetStringAsync($"sample-data/AdventOfCode/Y2023/Day21/{PuzzleHelper.GetPuzzleTitle(typeof(Solutions)).Replace(" ", "")}_full.txt");
-        input = s.Replace("\r", "");
+        var parser = new Parser();
+        input = parser.Parse(s.Replace("\r", ""));
     }
 }

@@ -3,7 +3,6 @@
 @typeparam TInput
 @typeparam TState where TState : StateBase
 @typeparam TSolutions
-@typeparam TParser where TParser : IParser<TInput>, new()
 
 <PageTitle>@title</PageTitle>
 
@@ -13,7 +12,7 @@
 <div class="my-4">
     <span class="p-2 rounded bg-light">@(animationDuration == 0 ? "Fastest" : animationDuration == 1000 ? "Animation Stopped" : $"Run a step every {animationDuration} ms")</span>
 </div>
-    @if (Input != string.Empty)
+    @if (Input is not null)
     {
     @if (isProcessing)
     {
@@ -41,7 +40,7 @@
 
 @code {
     [Parameter]
-    public string Input { get; set; } = string.Empty;
+    public TInput? Input { get; set; }
     [Parameter]
     public RenderFragment<TState>? ItemTemplate { get; set; }
 
@@ -56,8 +55,7 @@
     {
         cts = new CancellationTokenSource();
         var token = cts.Token;
-        var parser = new TParser();
-        await Solve(part(parser.Parse(Input)), token);
+        await Solve(part(Input!), token);
         StateHasChanged();
     }
 
