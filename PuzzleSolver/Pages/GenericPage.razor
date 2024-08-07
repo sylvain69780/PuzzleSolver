@@ -1,0 +1,74 @@
+﻿@using Algorithms
+@using System.Reflection
+@typeparam TInput
+@typeparam TState where TState : StateBase
+@typeparam TSolutions
+@typeparam TParser where TParser : IParser<TInput>, new()
+
+<PageTitle>@title</PageTitle>
+
+<h1>@title</h1>
+
+<input type="range" id="delayRange" @bind=animationDuration min="0" max="1000">
+<div class="my-4">
+    <span class="p-2 rounded bg-light">@(animationDuration == 0 ? "Fastest" : animationDuration == 1000 ? "Animation Stopped" : $"Run a step every {animationDuration} ms")</span>
+</div>
+    @if (Input != string.Empty)
+    {
+    @if (isProcessing)
+    {
+        <div>
+            <button class="btn btn-primary" @onclick="(e) => { cts?.Cancel();}">Cancel</button>
+        </div>
+    } else
+    {
+        <div>
+            @foreach (var method in methods)
+            {
+                <button class="btn btn-primary" @onclick="(e) => StartSolving(method.Method)">Solve @method.Name</button>
+            }
+        </div>
+    }
+}
+
+<p class="p-2" role="status">Solution: @solution</p>
+
+@code {
+    private string title = PuzzleHelper.GetPuzzleTitle(typeof(TSolutions));
+    private List<(string Name, Func<TInput, IEnumerable<TState>> Method)> methods = PuzzleHelper.GetPuzzleMethods<TInput, TState>(typeof(TSolutions));
+    [Parameter]
+    public string Input { get; set; }  = string.Empty;
+    private string solution = string.Empty;
+    private int animationDuration = 500;
+    private bool isProcessing;
+    private CancellationTokenSource? cts;
+
+    private async Task StartSolving(Func<TInput, IEnumerable<TState>> part)
+    {
+        cts = new CancellationTokenSource();
+        var token = cts.Token;
+        var parser = new TParser();
+        await Solve(part(parser.Parse(Input)), token);
+        StateHasChanged();
+    }
+
+    private async Task Solve(IEnumerable<TState> steps,CancellationToken token)
+    {
+        isProcessing = true;
+        foreach (var state in steps)
+        {
+            solution = state.Message;
+            if (animationDuration > 0)
+            {
+                StateHasChanged();
+                await Task.Delay(animationDuration);
+                if (token.IsCancellationRequested)
+                {
+                    solution = "Processing Cancelled";
+                    break;
+                }
+            }
+        }
+        isProcessing = false;
+    }
+}

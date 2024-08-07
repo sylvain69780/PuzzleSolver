@@ -3,9 +3,9 @@ using System.Linq;
 
 namespace Algorithms.AdventOfCode.Y2023.Day20
 {
-    public static class Parser
+    public  class Parser : IParser<Input>
     {
-        public static Input Parse(string input)
+        public  Input Parse(string input)
         {
             return new Input()
             {

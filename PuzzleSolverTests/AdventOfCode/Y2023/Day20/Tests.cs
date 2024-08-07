@@ -21,11 +21,11 @@ namespace PuzzleSolverTests.AdventOfCode.Y2023.Day20
                 var customAttribute = (SolutionMethodAttribute)Attribute.GetCustomAttribute(method, typeof(SolutionMethodAttribute))!;
                 strategies.Add((customAttribute.Description, (Func<Input, IEnumerable<State>>)method.CreateDelegate(typeof(Func<Input, IEnumerable<State>>))));
             }
-
-            Assert.Equal("32000000", Solutions.PartOne(Parser.Parse(input)).Last().Message);
-            Assert.Equal("11687500", Solutions.PartOne(Parser.Parse(input1)).Last().Message);
-            Assert.Equal("818649769", Solutions.PartOne(Parser.Parse(input2)).Last().Message);
-            Assert.Equal("246313604784977", Solutions.PartTwo(Parser.Parse(input2)).Last().Message);
+            var parser = new Parser();
+            Assert.Equal("32000000", Solutions.PartOne(parser.Parse(input)).Last().Message);
+            Assert.Equal("11687500", Solutions.PartOne(parser.Parse(input1)).Last().Message);
+            Assert.Equal("818649769", Solutions.PartOne(parser.Parse(input2)).Last().Message);
+            Assert.Equal("246313604784977", Solutions.PartTwo(parser.Parse(input2)).Last().Message);
         }
 
         const string path = "..\\..\\..\\..\\PuzzleSolver\\wwwroot\\sample-data\\AdventOfCode\\Y2023\\Day20";

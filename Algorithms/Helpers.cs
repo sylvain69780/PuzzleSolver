@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Algorithms.AdventOfCode
+namespace Algorithms
 {
     internal static class Helpers
     {

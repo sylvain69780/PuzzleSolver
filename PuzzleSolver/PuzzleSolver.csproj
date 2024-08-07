@@ -26,4 +26,10 @@
     <Folder Include="wwwroot\sample-data\AdventOfCode\Y2023\Day25\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="Pages\GenericPage.razor">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+    </Content>
+  </ItemGroup>
+
 </Project>

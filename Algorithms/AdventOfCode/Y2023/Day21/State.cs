@@ -4,8 +4,7 @@ using System.Text;
 
 namespace Algorithms.AdventOfCode.Y2023.Day21
 {
-    public class State
+    public class State : StateBase
     {
-        public string Message = string.Empty;
     }
 }

@@ -1,80 +1,17 @@
 ﻿@page "/AdventOfCode/Y2023/Day20"
 @using Algorithms.AdventOfCode
 @using Algorithms.AdventOfCode.Y2023.Day20
-@using System.Reflection
 @inject HttpClient Http
 
-<PageTitle>@title</PageTitle>
+<GenericPage TInput="Input" TParser="Parser" TSolutions="Solutions" TState="State" Input="@input"/>
 
-<h1>@title</h1>
-
-<input type="range" id="delayRange" @bind=animationDuration min="0" max="1000">
-<div class="my-4">
-    <span class="p-2 rounded bg-light">@(animationDuration == 0 ? "Fastest" : animationDuration == 1000 ? "Animation Stopped" : $"Run a step every {animationDuration} ms")</span>
-</div>
-    @if (input != string.Empty)
-    {
-    @if (isProcessing)
-    {
-        <div>
-            <button class="btn btn-primary" @onclick="(e) => { cts?.Cancel();}">Cancel</button>
-        </div>
-    } else
-    {
-        <div>
-            @foreach (var method in methods)
-            {
-                <button class="btn btn-primary" @onclick="(e) => StartSolving(method.Method)">Solve @method.Name</button>
-            }
-        </div>
-    }
-}
-
-<p class="p-2" role="status">Solution: @solution</p>
-
-@code {
-    private string title = PuzzleHelper.GetPuzzleTitle(typeof(Solutions));
-    private List<(string Name, Func<Input, IEnumerable<State>> Method)> methods = PuzzleHelper.GetPuzzleMethods<Input, State>(typeof(Solutions));
-
+@code 
+{
     private string input = string.Empty;
-    private string solution = string.Empty;
-    private int animationDuration = 500;
-    private bool isProcessing;
-    private CancellationTokenSource? cts;
-
     protected override async Task OnInitializedAsync()
     {
-        // await Task.Delay(5000);
-        var s = await Http.GetStringAsync($"sample-data/AdventOfCode/Y2023/Day20/{title.Replace(" ", "")}_full.txt");
+       // await Task.Delay(5000);
+        var s = await Http.GetStringAsync($"sample-data/AdventOfCode/Y2023/Day20/{PuzzleHelper.GetPuzzleTitle(typeof(Solutions)).Replace(" ", "")}_full.txt");
         input = s.Replace("\r", "");
-
-    }
-
-    private async Task StartSolving(Func<Input, IEnumerable<State>> part)
-    {
-        cts = new CancellationTokenSource();
-        var token = cts.Token;
-        await Solve(part(Parser.Parse(input)), token);
-        StateHasChanged();
-    }
-
-    private async Task Solve(IEnumerable<State> steps,CancellationToken token)
-    {
-        isProcessing = true;
-        foreach (var state in steps)
-        {
-            solution = state.Message;
-            if (animationDuration > 0)
-            {
-                StateHasChanged();
-                await Task.Delay(animationDuration);
-                if (token.IsCancellationRequested)
-                {
-                    solution = "Processing Cancelled";
-                    break;
-                }
-            }
-        }
-        isProcessing = false;
     }
 }
