@@ -5,7 +5,9 @@
 
 <StepController TInput="Input" TSolutions="Solutions" TState="State" Input="@input">
     <ItemTemplate>
-        <p>Rendering state : @context.Message</p>
+        <p>Rendering state : @context.State.Message</p>
+        <p>Interation : @context.Iteration</p>
+        <p>Delay : @context.Delay</p>
     </ItemTemplate>
 </StepController>
 

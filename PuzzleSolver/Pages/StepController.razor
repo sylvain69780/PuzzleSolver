@@ -8,9 +8,9 @@
 
 <h1>@title</h1>
 
-<input type="range" id="delayRange" @bind=animationDuration min="0" max="1000">
+<input type="range" id="delayRange" @bind=delay min="0" max="1000">
 <div class="my-4">
-    <span class="p-2 rounded bg-light">@(animationDuration == 0 ? "Fastest" : animationDuration == 1000 ? "Animation Stopped" : $"Run a step every {animationDuration} ms")</span>
+    <span class="p-2 rounded bg-light">@(delay == 0 ? "Fastest" : delay == 1000 ? "Animation Stopped" : $"Run a step every {delay} ms")</span>
 </div>
     @if (Input is not null)
     {
@@ -34,7 +34,7 @@
     <p class="p-2" role="status">Solution: @state.Message</p>
     if ( ItemTemplate is not null)
     {
-        @ItemTemplate(state)
+        @ItemTemplate((delay, iteration, state))
     }
 }
 
@@ -42,14 +42,15 @@
     [Parameter]
     public TInput? Input { get; set; }
     [Parameter]
-    public RenderFragment<TState>? ItemTemplate { get; set; }
+    public RenderFragment<(int Delay, int Iteration, TState State)>? ItemTemplate { get; set; }
 
     private string title = PuzzleHelper.GetPuzzleTitle(typeof(TSolutions));
     private List<(string Name, Func<TInput, IEnumerable<TState>> Method)> methods = PuzzleHelper.GetPuzzleMethods<TInput, TState>(typeof(TSolutions));
     private TState? state;
-    private int animationDuration = 500;
+    private int delay = 500;
     private bool isProcessing;
     private CancellationTokenSource? cts;
+    private int iteration;
 
     private async Task StartSolving(Func<TInput, IEnumerable<TState>> part)
     {
@@ -62,13 +63,15 @@
     private async Task Solve(IEnumerable<TState> steps,CancellationToken token)
     {
         isProcessing = true;
+        iteration = 0;
         foreach (var s in steps)
         {
+            iteration++;
             state = s;
-            if (animationDuration > 0)
+            if (delay > 0)
             {
                 StateHasChanged();
-                await Task.Delay(animationDuration);
+                await Task.Delay(delay);
                 if (token.IsCancellationRequested)
                 {
                     state.Message = "Processing Cancelled";
