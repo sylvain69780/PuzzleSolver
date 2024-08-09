@@ -1,7 +1,6 @@
 ﻿@page "/AdventOfCode/Y2023/Day20"
 @using Algorithms.AdventOfCode
 @using Algorithms.AdventOfCode.Y2023.Day20
-@inject HttpClient Http
 
 <StepController TInput="Input" TSolutions="Solutions" TState="State" Input="@input">
     <ItemTemplate>
@@ -10,15 +9,12 @@
         <p>Delay : @context.Delay</p>
     </ItemTemplate>
 </StepController>
-
+<InputData InputFiles=@files TInput="Input" TParser="Parser" @bind-Input=input/>
 @code 
 {
     private Input? input;
-    protected override async Task OnInitializedAsync()
-    {
-        // await Task.Delay(5000);
-        var s = await Http.GetStringAsync($"sample-data/AdventOfCode/Y2023/Day20/{PuzzleHelper.GetPuzzleTitle(typeof(Solutions)).Replace(" ", "")}_full.txt");
-        var parser = new Parser();
-        input = parser.Parse(s.Replace("\r", ""));
-    }
+    private KeyValuePair<string, string>[] files = [
+        new KeyValuePair<string,string>("Example",$"sample-data/AdventOfCode/Y2023/Day20/{PuzzleHelper.GetPuzzleTitle(typeof(Solutions)).Replace(" ", "")}.txt"),
+        new KeyValuePair<string,string>("Full",$"sample-data/AdventOfCode/Y2023/Day20/{PuzzleHelper.GetPuzzleTitle(typeof(Solutions)).Replace(" ", "")}_full.txt")
+    ];
 }

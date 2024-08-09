@@ -1,0 +1,53 @@
+﻿@using Algorithms
+@typeparam TInput
+@typeparam TParser where TParser : IParser<TInput>, new()
+@inject HttpClient Http
+
+<div>
+    <button class="btn-primary" @onclick="@( () => {isPuzzleInputVisible = !isPuzzleInputVisible; })">
+        Toggle Puzzle input
+    </button>
+</div>
+<div class=@(isPuzzleInputVisible ? null : "collapse")>
+    <div>
+        <label class="form-label">The data below is what is provided as example in the problem statement. You can paste your own user input.</label>
+        @for(var i = 0 ; i < InputFiles!.Length; i++)
+        {
+            var currentIndex = i;
+            <div>
+                <button class="btn-primary" @onclick=@(async () => { selectedIndex = currentIndex; await LoadInput(); })>@((InputFiles[i]).Key)</button>
+            </div>
+        }
+    </div>
+    <div>
+        <pre><textarea spellcheck="false" class="form-control" aria-label="Puzzle Input" rows="10" @bind="inputStr" maxlength="10000000"></textarea></pre>
+    </div>
+</div>
+
+
+@code {
+    [Parameter]
+    public KeyValuePair<string, string>[]? InputFiles { get; set; }
+    [Parameter]
+    public TInput? Input { get; set; }
+    [Parameter]
+    public EventCallback<TInput> InputChanged { get; set; }
+
+    private int selectedIndex = 0;
+    private bool isPuzzleInputVisible = false;
+    private string inputStr = string.Empty;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadInput();
+    }
+    private async Task LoadInput()
+    {
+        // await Task.Delay(5000);
+        inputStr = (await Http.GetStringAsync(InputFiles![selectedIndex].Value)).Replace("\r", "");
+        var parser = new TParser();
+        Input = parser.Parse(inputStr);
+        await InputChanged.InvokeAsync(Input);
+    }
+
+}
