@@ -1,5 +1,6 @@
 ﻿using Algorithms;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 
 namespace PuzzleSolver
 {
@@ -20,5 +21,6 @@ namespace PuzzleSolver
             }
             return methods;
         }
+
     }
 }
