@@ -34,6 +34,7 @@ namespace Algorithms.Bonus.Sudoku
                 var emptySlots = Enumerable.Range(0, 9 * 9).Where(x => puzzleState[x] == '.').ToArray();
                 if (emptySlots.Length == 0)
                 {
+                    // the solution is found
                     yield return new State
                     {
                         Message = puzzleState
@@ -42,10 +43,11 @@ namespace Algorithms.Bonus.Sudoku
                 }
                 else
                 {
-                    var slotsWithMinimalEntropy = emptySlots.Select(x => (p: x, e: Entropy(x, puzzleState))).OrderBy(x => x.e.Length).ThenBy(x => x.p).ToArray();
-                    var (p, e) = slotsWithMinimalEntropy[0];
+                    var slotWithMinimalEntropy = emptySlots.Select(x => (p: x, e: Entropy(x, puzzleState))).OrderBy(x => x.e.Length).ThenBy(x => x.p).First();
+                    var (p, e) = slotWithMinimalEntropy;
                     if (e == string.Empty)
                     {
+                        // impossible case
                         yield return new State
                         {
                             Message = puzzleState
