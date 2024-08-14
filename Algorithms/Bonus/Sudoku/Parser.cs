@@ -11,7 +11,7 @@ namespace Algorithms.Bonus.Sudoku
         {
             return new Input
             {
-                Grid = new String(input.Where(c => c != '\n' && c != '\r').ToArray())
+                Grid = String.Concat(input.Where(c => c != '\n' && c != '\r'))
             };
         }
     }

@@ -10,7 +10,7 @@ namespace Algorithms.Bonus.Sudoku
     public class Solutions
     {
         private const string Digits = "123456789";
-        private static string Entropy(int position, string grid)
+        public static string Entropy(int position, string grid)
         {
             var res = new HashSet<char>();
             var (col, row) = (position % 9, position / 9);
@@ -50,7 +50,8 @@ namespace Algorithms.Bonus.Sudoku
                         // impossible case
                         yield return new State
                         {
-                            Message = puzzleState
+                            Message = puzzleState,
+                            Queue = dfs
                         };
                         continue;
                     }

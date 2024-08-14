@@ -1,0 +1,19 @@
+﻿@page "/Bonus/Sudoku"
+@using Algorithms
+@using Algorithms.Bonus.Sudoku
+@using PuzzleSolver.Pages.Bonus.Sudoku
+
+<StepController TInput="Input" TSolutions="Solutions" TState="State" Input="@input">
+    <ItemTemplate>
+        <Visualization State="context.State"/>
+    </ItemTemplate>
+</StepController>
+<InputData InputFiles=@files TInput="Input" TParser="Parser" @bind-Input=input />
+@code
+{
+    private Input? input;
+    private KeyValuePair<string, string>[] files = [
+        new KeyValuePair<string,string>("Example 1",$"sample-data/Bonus/Sudoku/{PuzzleHelper.GetPuzzleTitle(typeof(Solutions)).Replace(" ", "")}.txt"),
+    new KeyValuePair<string,string>("Example 2",$"sample-data/Bonus/Sudoku/{PuzzleHelper.GetPuzzleTitle(typeof(Solutions)).Replace(" ", "")}_full.txt")
+    ];
+}

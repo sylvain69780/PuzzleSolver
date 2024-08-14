@@ -1,4 +1,5 @@
 ﻿using Algorithms;
+using System.Globalization;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
@@ -6,6 +7,9 @@ namespace PuzzleSolver
 {
     public static class PuzzleHelper
     {
+        public static string ToStringCSS(this double value) =>
+            value.ToString(CultureInfo.GetCultureInfo("en-GB"));
+
         public static string GetPuzzleTitle(Type type) => ((SolutionAttribute)Attribute.GetCustomAttribute(type, typeof(SolutionAttribute))!).Description;
 
         public static List<(string Name, Func<TInput, IEnumerable<TState>> Method)> GetPuzzleMethods<TInput, TState>(Type type)
