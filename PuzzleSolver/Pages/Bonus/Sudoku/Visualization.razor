@@ -1,14 +1,5 @@
 ﻿@using Algorithms
 @using Algorithms.Bonus.Sudoku
-<p class="p-1">
-    This is a Sudoku solver, and it has really no relation with Advent Of Code !
-</p>
-<p class="p-1">
-    All empty cells are adorned with the count of potential numbers.
-    When the count of potential numbers is greater than 1, we should make a guess and explore until an inconsistency arises (colored in red).
-    The visualization displays a guessed number in blue.
-    The number of dots under the numbers indicates the depth of the search.
-</p>
 
 <svg viewBox="-0.1 -0.1 9.2 9.8" class="img-fluid m-1">
     <defs>
@@ -27,9 +18,9 @@
     </defs>
     <rect x="-0.05" y="-0.05" width="9.1" height="9.1" fill="url(#gridPattern2)"></rect>
     @{
-        if (State!.Message.Length == 81)
+        if (State!.Grid.Length == 81)
         {
-            var s = State.Message;
+            var s = State.Grid;
             var dfs = Array.Empty<string>();
             if (State.Queue != null)
             {

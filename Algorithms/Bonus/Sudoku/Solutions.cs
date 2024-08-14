@@ -37,7 +37,8 @@ namespace Algorithms.Bonus.Sudoku
                     // the solution is found
                     yield return new State
                     {
-                        Message = puzzleState
+                        Message = "Solution found",
+                        Grid = puzzleState
                     };
                     break;
                 }
@@ -50,7 +51,8 @@ namespace Algorithms.Bonus.Sudoku
                         // impossible case
                         yield return new State
                         {
-                            Message = puzzleState,
+                            Message = "Seaching ...",
+                            Grid = puzzleState,
                             Queue = dfs
                         };
                         continue;

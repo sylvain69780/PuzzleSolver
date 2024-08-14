@@ -6,7 +6,7 @@ namespace Algorithms.Bonus.Sudoku
 {
     public class State : StateBase
     {
+        public string Grid { get; set; }
         public Stack<string> Queue { get; set; }
-
     }
 }
