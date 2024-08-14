@@ -1,22 +1,7 @@
 ﻿@using Algorithms
 @using Algorithms.Bonus.Sudoku
+<Grid>
 
-<svg viewBox="-0.1 -0.1 9.2 9.8" class="img-fluid m-1">
-    <defs>
-        <g id="sudoku-cell">
-            <rect x=".1" y=".1" width=".8" height=".8" fill="orange"></rect>
-        </g>
-        <g id="sudoku-bad-cell">
-            <rect x=".1" y=".1" width=".8" height=".8" fill="red"></rect>
-        </g>
-        <pattern id="gridPattern" width="1" height="1" patternUnits="userSpaceOnUse">
-            <rect width="1" height="1" fill="white" stroke="black" stroke-width="0.025" />
-        </pattern>
-        <pattern id="gridPattern2" width="3" height="3" patternUnits="userSpaceOnUse">
-            <rect width="3" height="3" fill="url(#gridPattern)" stroke="black" stroke-width="0.1" />
-        </pattern>
-    </defs>
-    <rect x="-0.05" y="-0.05" width="9.1" height="9.1" fill="url(#gridPattern2)"></rect>
     @{
         if (State!.Grid.Length == 81)
         {
@@ -79,7 +64,7 @@
                 }
         }
     }
-</svg>
+</Grid>
 
 @code {
     [Parameter]

@@ -32,9 +32,9 @@
 @if (state is not null)
 {
     <p class="p-2" role="status">Solution: @state.Message</p>
-    if ( ItemTemplate is not null)
+    if (ChildContent is not null)
     {
-        @ItemTemplate((delay, iteration, state))
+        @ChildContent((delay, iteration, state))
     }
 }
 
@@ -42,7 +42,7 @@
     [Parameter]
     public TInput? Input { get; set; }
     [Parameter]
-    public RenderFragment<(int Delay, int Iteration, TState State)>? ItemTemplate { get; set; }
+    public RenderFragment<(int Delay, int Iteration, TState State)>? ChildContent { get; set; }
 
     private string title = PuzzleHelper.GetPuzzleTitle(typeof(TSolutions));
     private List<(string Name, Func<TInput, IEnumerable<TState>> Method)> methods = PuzzleHelper.GetPuzzleMethods<TInput, TState>(typeof(TSolutions));

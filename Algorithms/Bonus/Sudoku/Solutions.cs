@@ -31,15 +31,16 @@ namespace Algorithms.Bonus.Sudoku
             dfs.Push(input.Grid);
             while (dfs.TryPop(out var puzzleState))
             {
+                yield return new State
+                {
+                    Message = "Seaching ...",
+                    Grid = puzzleState,
+                    Queue = dfs
+                };
                 var emptySlots = Enumerable.Range(0, 9 * 9).Where(x => puzzleState[x] == '.').ToArray();
                 if (emptySlots.Length == 0)
                 {
                     // the solution is found
-                    yield return new State
-                    {
-                        Message = "Solution found",
-                        Grid = puzzleState
-                    };
                     break;
                 }
                 else
@@ -48,13 +49,6 @@ namespace Algorithms.Bonus.Sudoku
                     var (p, e) = slotWithMinimalEntropy;
                     if (e == string.Empty)
                     {
-                        // impossible case
-                        yield return new State
-                        {
-                            Message = "Seaching ...",
-                            Grid = puzzleState,
-                            Queue = dfs
-                        };
                         continue;
                     }
                     var sb = new StringBuilder(puzzleState);

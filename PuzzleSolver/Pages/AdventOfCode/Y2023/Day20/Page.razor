@@ -3,18 +3,16 @@
 @using Algorithms.AdventOfCode.Y2023.Day20
 
 <StepController TInput="Input" TSolutions="Solutions" TState="State" Input="@input">
-    <ItemTemplate>
-        <p>Rendering state : @context.State.Message</p>
-        <p>Interation : @context.Iteration</p>
-        <p>Delay : @context.Delay</p>
-    </ItemTemplate>
+    <p>Rendering state : @context.State.Message</p>
+    <p>Interation : @context.Iteration</p>
+    <p>Delay : @context.Delay</p>
 </StepController>
-<InputData InputFiles=@files TInput="Input" TParser="Parser" @bind-Input=input/>
-@code 
+<InputData InputFiles=@files TInput="Input" TParser="Parser" @bind-Input=input />
+@code
 {
     private Input? input;
     private KeyValuePair<string, string>[] files = [
         new KeyValuePair<string,string>("Example",$"sample-data/AdventOfCode/Y2023/Day20/{PuzzleHelper.GetPuzzleTitle(typeof(Solutions)).Replace(" ", "")}.txt"),
-        new KeyValuePair<string,string>("Full",$"sample-data/AdventOfCode/Y2023/Day20/{PuzzleHelper.GetPuzzleTitle(typeof(Solutions)).Replace(" ", "")}_full.txt")
+    new KeyValuePair<string,string>("Full",$"sample-data/AdventOfCode/Y2023/Day20/{PuzzleHelper.GetPuzzleTitle(typeof(Solutions)).Replace(" ", "")}_full.txt")
     ];
 }
