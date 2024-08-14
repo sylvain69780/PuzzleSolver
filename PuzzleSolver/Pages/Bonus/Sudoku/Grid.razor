@@ -18,7 +18,11 @@
     <rect x="-0.05" y="-0.05" width="9.1" height="9.1" fill="url(#gridPattern2)"></rect>
     @foreach (var y in Enumerable.Range(0, 9))
     @foreach (var x in Enumerable.Range(0, 9))
-    @ChildContent!((x,y))
+        {
+            <g transform="translate(@x,@y)">
+                @ChildContent!((x, y))
+            </g>
+        }
 </svg>
 
 @code {

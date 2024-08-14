@@ -15,7 +15,7 @@
     </p>
     @if (context.State!.Grid.Length == 81)
     {
-        <Visualization State="context.State" />
+        <Visualization State="context.State" Input="input"/>
     }
 </StepController>
 <InputData InputFiles=@files TInput="Input" TParser="Parser" @bind-Input=input />
