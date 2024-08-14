@@ -16,11 +16,13 @@
         </pattern>
     </defs>
     <rect x="-0.05" y="-0.05" width="9.1" height="9.1" fill="url(#gridPattern2)"></rect>
-    @ChildContent
+    @foreach (var y in Enumerable.Range(0, 9))
+    @foreach (var x in Enumerable.Range(0, 9))
+    @ChildContent!((x,y))
 </svg>
 
 @code {
     [Parameter]
-    public RenderFragment? ChildContent { get; set; }
+    public RenderFragment<(int x,int y)>? ChildContent { get; set; }
 
 }

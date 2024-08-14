@@ -13,7 +13,10 @@
         The visualization displays a guessed number in blue.
         The number of dots under the numbers indicates the depth of the search.
     </p>
-    <Visualization State="context.State" />
+    @if (context.State!.Grid.Length == 81)
+    {
+        <Visualization State="context.State" />
+    }
 </StepController>
 <InputData InputFiles=@files TInput="Input" TParser="Parser" @bind-Input=input />
 @code

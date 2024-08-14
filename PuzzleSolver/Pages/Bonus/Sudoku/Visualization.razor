@@ -1,72 +1,74 @@
 ﻿@using Algorithms
 @using Algorithms.Bonus.Sudoku
+
 <Grid>
-
     @{
-        if (State!.Grid.Length == 81)
+        var cell = grid[context.x + context.y * 9];
+    }
+    @if (cell == '.')
+    {
+        var r = Solutions.Entropy(context.x + context.y * 9, grid).Length;
+        if (r == 0)
         {
-            var s = State.Grid;
-            var dfs = Array.Empty<string>();
-            if (State.Queue != null)
-            {
-                dfs = State.Queue.ToArray();
-            }
-            foreach (var y in Enumerable.Range(0, 9))
-                foreach (var x in Enumerable.Range(0, 9))
-                {
-                    var c = s[x + y * 9];
-                    if (c == '.')
-                    {
-                        var r = Solutions.Entropy(x + y * 9,s).Length;
-                        if (r == 0)
-                        {
-                            <use href="#sudoku-bad-cell" x="@x" y="@y" />
-                        }
-                        else
-                        {
-                            var e = (double)(10 - r) / 9;
-                            <use href="#sudoku-cell" x="@x" y="@y" opacity="@(e.ToStringCSS())" />
-                            <g transform="translate(.75,.76)">
-                                <text x="@x" y="@y" font-family="Comic Sans" font-size=".3" dominant-baseline="middle" text-anchor="middle">@r</text>
-                            </g>
-                        }
-                    }
-                    else
-                    {
-                        var fcolor = "black";
-                        var questions = string.Empty;
-                        var other = ' ';
-                        if (dfs.Length > 1)
-                        {
-                            for (var i = 1; i < dfs.Length; i++)
-                            {
-                                var b = dfs[^i][x + 9 * y];
-                                if (s[x + 9 * y] != b)
-                                {
-                                    fcolor = b == '.' ? "gray" : "blue";
-                                    if (b != '.')
-                                        other = b;
-                                    questions = questions + '.';
-                                }
-                            }
-                        }
-                        <g transform="translate(.5,.56)">
-                            <text x="@x" y="@y" font-family="Comic Sans" font-size=".8" dominant-baseline="middle" text-anchor="middle" fill="@fcolor">@c</text>
-                        </g>
-                        <g transform="translate(.5,.8)">
-                            <text x="@x" y="@y" font-family="Comic Sans" font-size=".3" dominant-baseline="middle" text-anchor="middle">@questions</text>
-                        </g>
-                        <g transform="translate(.1,.8)">
-                            <text x="@x" y="@y" font-family="Comic Sans" font-size=".3" dominant-baseline="middle">@other</text>
-                        </g>
-
-                    }
-                }
+            <use href="#sudoku-bad-cell" x="@context.x" y="@context.y" />
+        }
+        else
+        {
+            var e = (double)(10 - r) / 9;
+            <use href="#sudoku-cell" x="@context.x" y="@context.y" opacity="@(e.ToStringCSS())" />
+            <g transform="translate(.75,.76)">
+                <text x="@context.x" y="@context.y" font-family="Comic Sans" font-size=".3" dominant-baseline="middle" text-anchor="middle">@r</text>
+            </g>
         }
     }
+    else
+    {
+        var fcolor = "black";
+        var questions = string.Empty;
+        var other = ' ';
+        if (dfs.Length > 1)
+        {
+            for (var i = 1; i < dfs.Length; i++)
+            {
+                var b = dfs[^i][context.x + 9 * context.y];
+                if (cell != b)
+                {
+                    fcolor = b == '.' ? "gray" : "blue";
+                    if (b != '.')
+                        other = b;
+                    questions = questions + '.';
+                }
+            }
+        }
+        <g transform="translate(.5,.56)">
+            <text x="@context.x" y="@context.y" font-family="Comic Sans" font-size=".8" dominant-baseline="middle" text-anchor="middle" fill="@fcolor">@cell</text>
+        </g>
+        <g transform="translate(.5,.8)">
+            <text x="@context.x" y="@context.y" font-family="Comic Sans" font-size=".3" dominant-baseline="middle" text-anchor="middle">@questions</text>
+        </g>
+        <g transform="translate(.1,.8)">
+            <text x="@context.x" y="@context.y" font-family="Comic Sans" font-size=".3" dominant-baseline="middle">@other</text>
+        </g>
+
+    }
 </Grid>
+}
 
 @code {
     [Parameter]
     public State? State { get; set; }
+
+    private string[] dfs = Array.Empty<string>();
+
+    private string grid = new string('.', 81);
+    private string previousGrid = new string('.', 81);
+
+    protected override void OnParametersSet()
+    {
+        dfs = State!.Queue.ToArray();
+        previousGrid = grid;
+        grid = State.Grid;
+        base.OnParametersSet();
+    }
+
 }
