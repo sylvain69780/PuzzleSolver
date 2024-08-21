@@ -5,9 +5,9 @@ using System.Text;
 
 namespace Algorithms.Bonus.Sudoku
 {
-    public class Parser : IParser<Input>
+    public static class Parser 
     {
-        public Input Parse(string input)
+        public static Input Parse(string input)
         {
             return new Input
             {

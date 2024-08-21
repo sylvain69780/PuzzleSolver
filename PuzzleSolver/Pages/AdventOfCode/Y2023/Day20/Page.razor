@@ -7,12 +7,12 @@
     <p>Interation : @context.Iteration</p>
     <p>Delay : @context.Delay</p>
 </StepController>
-<InputData InputFiles=@files TInput="Input" TParser="Parser" @bind-Input=input />
+<InputData InputFiles=@files TInput="Input" Parser="Parser.Parse" @bind-Input=input />
 @code
 {
     private Input? input;
     private KeyValuePair<string, string>[] files = [
         new KeyValuePair<string,string>("Example",$"sample-data/AdventOfCode/Y2023/Day20/{PuzzleHelper.GetPuzzleTitle(typeof(Solutions)).Replace(" ", "")}.txt"),
-    new KeyValuePair<string,string>("Full",$"sample-data/AdventOfCode/Y2023/Day20/{PuzzleHelper.GetPuzzleTitle(typeof(Solutions)).Replace(" ", "")}_full.txt")
+        new KeyValuePair<string,string>("Full",$"sample-data/AdventOfCode/Y2023/Day20/{PuzzleHelper.GetPuzzleTitle(typeof(Solutions)).Replace(" ", "")}_full.txt")
     ];
 }

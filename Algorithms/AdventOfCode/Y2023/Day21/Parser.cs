@@ -2,9 +2,9 @@
 
 namespace Algorithms.AdventOfCode.Y2023.Day21
 {
-    public  class Parser : IParser<Input>
+    public static class Parser
     {
-        public  Input Parse(string input)
+        public  static Input Parse(string input)
         {
             var map = input.Split('\n');
             var pos = map.Select((s, y) => (s, y)).Where(l => l.s.Contains('S')).Select(l => (x: l.s.IndexOf('S'), l.y)).Single();

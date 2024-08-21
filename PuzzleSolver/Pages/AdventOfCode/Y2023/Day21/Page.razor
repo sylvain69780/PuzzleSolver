@@ -12,7 +12,6 @@
     {
         // await Task.Delay(5000);
         var s = await Http.GetStringAsync($"sample-data/AdventOfCode/Y2023/Day21/{PuzzleHelper.GetPuzzleTitle(typeof(Solutions)).Replace(" ", "")}_full.txt");
-        var parser = new Parser();
-        input = parser.Parse(s.Replace("\r", ""));
+        input = Parser.Parse(s.Replace("\r", ""));
     }
 }

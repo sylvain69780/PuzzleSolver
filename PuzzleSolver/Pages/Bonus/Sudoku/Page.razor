@@ -18,7 +18,7 @@
         <Visualization State="context.State" Input="input"/>
     }
 </StepController>
-<InputData InputFiles=@files TInput="Input" TParser="Parser" @bind-Input=input />
+<InputData InputFiles=@files TInput="Input" Parser="Parser.Parse" @bind-Input=input />
 @code
 {
     private Input? input;

@@ -3,9 +3,10 @@ using System.Linq;
 
 namespace Algorithms.AdventOfCode.Y2023.Day20
 {
-    public  class Parser : IParser<Input>
+//    public delegate<T,string> T ParserDelegate(string input);
+    public static class Parser
     {
-        public  Input Parse(string input)
+        public static Input Parse(string input)
         {
             return new Input()
             {

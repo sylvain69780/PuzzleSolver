@@ -1,6 +1,5 @@
 ﻿@using Algorithms
 @typeparam TInput
-@typeparam TParser where TParser : IParser<TInput>, new()
 @inject HttpClient Http
 
 <div>
@@ -29,6 +28,8 @@
     [Parameter]
     public KeyValuePair<string, string>[]? InputFiles { get; set; }
     [Parameter]
+    public Func<string,TInput>? Parser { get ; set; }
+    [Parameter]
     public TInput? Input { get; set; }
     [Parameter]
     public EventCallback<TInput> InputChanged { get; set; }
@@ -45,8 +46,7 @@
     {
         // await Task.Delay(5000);
         inputStr = (await Http.GetStringAsync(InputFiles![selectedIndex].Value)).Replace("\r", "");
-        var parser = new TParser();
-        Input = parser.Parse(inputStr);
+        Input = Parser!(inputStr);
         await InputChanged.InvokeAsync(Input);
     }
 
