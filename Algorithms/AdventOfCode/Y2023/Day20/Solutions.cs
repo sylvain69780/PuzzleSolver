@@ -10,8 +10,11 @@ namespace Algorithms.AdventOfCode.Y2023.Day20
     [Solution("Pulse Propagation")]
     public class Solutions
     {
+
+        private readonly static Func<State> _state = () => new State { Message = "In progress" };
+
         [SolutionMethod("Part 1")]
-        public static IEnumerable<State> PartOne(Input input)
+        public static IEnumerable<Func<State>> PartOne(Input input)
         {
             var configuraton = input.ModuleConfiguration;
             var flipFlops = configuraton
@@ -63,16 +66,13 @@ namespace Algorithms.AdventOfCode.Y2023.Day20
                             bfs.Enqueue((targetModule, pulse, module.name));
                     }
                 }
-                yield return new State
-                {
-                    Message = $"This is step {i} ... still searching"
-                };
+                yield return _state;
             }
-            yield return new State() { 
+            yield return () => new State() { 
                 Message = (high * low).ToString() 
             };
         }
-        static IEnumerable<State> PartTwoNaive(Input input)
+        static IEnumerable<Func<State>> PartTwoNaive(Input input)
         {
             var configuraton = input.ModuleConfiguration;
             var flipFlops = configuraton
@@ -129,14 +129,14 @@ namespace Algorithms.AdventOfCode.Y2023.Day20
                     }
                 }
             }
-            yield return new State()
+            yield return () => new State()
             {
                 Message = count.ToString()
             };
         }
 
         [SolutionMethod("Part 2")]
-        public static IEnumerable<State> PartTwo(Input input)
+        public static IEnumerable<Func<State>> PartTwo(Input input)
         {
             var configuration = input.ModuleConfiguration;
             var flipFlops = configuration
@@ -213,13 +213,10 @@ namespace Algorithms.AdventOfCode.Y2023.Day20
                             bfs.Enqueue((targetModule, pulse, module.name));
                     }
                 }
-                yield return new State
-                {
-                    Message = $"This is step {count} ... still searching"
-                };
+                yield return _state;
             }
             var solution = counters.Values.Select(x => x[x.Count - 1].period).Aggregate(1L, (a, b) => (a * b));
-            yield return new State()
+            yield return () => new State()
             {
                 Message = solution.ToString()
             };

@@ -25,18 +25,20 @@ namespace Algorithms.Bonus.Sudoku
             return string.Concat(Digits.Where(d => !res.Contains(d)));
         }
         [SolutionMethod("Sudoku")]
-        public static IEnumerable<State> Sudoku(Input input)
+        public static IEnumerable<Func<State>> Sudoku(Input input)
         {
             var dfs = new Stack<string>();
             dfs.Push(input.Grid);
-            while (dfs.TryPop(out var puzzleState))
+            var puzzleState = string.Empty;
+            State stateFunc() => new State
             {
-                yield return new State
-                {
-                    Message = "Seaching ...",
-                    Grid = puzzleState,
-                    Queue = dfs
-                };
+                Message = "Seaching ...",
+                Grid = puzzleState,
+                Queue = dfs
+            };
+            while (dfs.TryPop(out puzzleState))
+            {
+                yield return stateFunc;
                 var emptySlots = Enumerable.Range(0, 9 * 9).Where(x => puzzleState[x] == '.').ToArray();
                 if (emptySlots.Length == 0)
                 {
@@ -59,7 +61,7 @@ namespace Algorithms.Bonus.Sudoku
                     }
                 }
                 if (dfs.Count == 0)
-                    yield return new State
+                    yield return () => new State
                     {
                         Message = "No solution found"
                     };

@@ -15,9 +15,9 @@ namespace PuzzleSolverTests.Bonus.Sudoku
         [Fact]
         public void Test()
         {
-            var result = Solutions.Sudoku(Parser.Parse(input1)).Last().Grid;
+            var result = Solutions.Sudoku(Parser.Parse(input1)).Last().Invoke().Grid;
             Assert.Equal("461352987579168432832794156394816275218537694657429318945273861186945723723681549", result);
-            result = Solutions.Sudoku(Parser.Parse(input2)).Last().Grid;
+            result = Solutions.Sudoku(Parser.Parse(input2)).Last().Invoke().Grid;
             Assert.Equal(@"734596281165287439298143567912368745576429813483751926341875692627934158859612374", result);
         }
 

@@ -1,7 +1,7 @@
 ﻿@using Algorithms
 @using System.Reflection
 @typeparam TInput
-@typeparam TState where TState : StateBase
+@typeparam TState where TState : StateBase, new()
 @typeparam TSolutions
 
 <PageTitle>@title</PageTitle>
@@ -13,13 +13,14 @@
     <span class="p-2 rounded bg-light">@(delay == 0 ? "Fastest" : delay == 1000 ? "Animation Stopped" : $"Run a step every {delay} ms")</span>
 </div>
     @if (Input is not null)
-    {
+{
     @if (isProcessing)
     {
         <div>
             <button class="btn btn-primary" @onclick="(e) => { cts?.Cancel();}">Cancel</button>
         </div>
-    } else
+    }
+    else
     {
         <div>
             @foreach (var method in methods)
@@ -45,14 +46,14 @@
     public RenderFragment<(int Delay, int Iteration, TState State)>? ChildContent { get; set; }
 
     private string title = PuzzleHelper.GetPuzzleTitle(typeof(TSolutions));
-    private List<(string Name, Func<TInput, IEnumerable<TState>> Method)> methods = PuzzleHelper.GetPuzzleMethods<TInput, TState>(typeof(TSolutions));
+    private List<(string Name, Func<TInput, IEnumerable<Func<TState>>> Method)> methods = PuzzleHelper.GetPuzzleMethods<TInput, TState>(typeof(TSolutions));
     private TState? state;
     private int delay = 500;
     private bool isProcessing;
     private CancellationTokenSource? cts;
     private int iteration;
 
-    private async Task StartSolving(Func<TInput, IEnumerable<TState>> part)
+    private async Task StartSolving(Func<TInput, IEnumerable<Func<TState>>> part)
     {
         cts = new CancellationTokenSource();
         var token = cts.Token;
@@ -60,16 +61,24 @@
         StateHasChanged();
     }
 
-    private async Task Solve(IEnumerable<TState> steps,CancellationToken token)
+    private async Task Solve(IEnumerable<Func<TState>> steps, CancellationToken token)
     {
         isProcessing = true;
         iteration = 0;
-        foreach (var s in steps)
+        Func<TState>? s = null;
+        state = new TState
         {
+            Message = "Running"
+        };
+        StateHasChanged();
+        await Task.Delay(1);
+        foreach (var step in steps)
+        {
+            s = step;
             iteration++;
-            state = s;
             if (delay > 0)
             {
+                state = step.Invoke();
                 StateHasChanged();
                 await Task.Delay(delay);
                 if (token.IsCancellationRequested)
@@ -79,6 +88,7 @@
                 }
             }
         }
+        state = s!.Invoke();
         isProcessing = false;
     }
 }
