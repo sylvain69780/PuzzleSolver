@@ -8,6 +8,42 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Pages\AdventOfCode\Y2023\Day21\Page.razor" />
+    <Content Remove="Pages\AdventOfCode\Y2023\Day22\Page.razor" />
+    <Content Remove="Pages\AdventOfCode\Y2023\Day23\Page.razor" />
+    <Content Remove="Pages\AdventOfCode\Y2023\Day24\Page.razor" />
+    <Content Remove="Pages\AdventOfCode\Y2023\Day25\Page.razor" />
+    <Content Remove="Pages\Bonus\Sudoku\EmptyCell.razor" />
+    <Content Remove="Pages\Bonus\Sudoku\Grid.razor" />
+    <Content Remove="Pages\Bonus\Sudoku\Page.razor" />
+    <Content Remove="Pages\Bonus\Sudoku\Visualization.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Pages\Bonus\Sudoku\Page.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Pages\AdventOfCode\Y2023\Day25\Page.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Pages\AdventOfCode\Y2023\Day23\Page.razor" />
+    <None Include="Pages\AdventOfCode\Y2023\Day24\Page.razor" />
+    <None Include="Pages\Bonus\Sudoku\EmptyCell.razor" />
+    <None Include="Pages\Bonus\Sudoku\Grid.razor" />
+    <None Include="Pages\Bonus\Sudoku\Visualization.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Include="Pages\AdventOfCode\Y2023\Day22\Page.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Pages\AdventOfCode\Y2023\Day21\Page.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.0" PrivateAssets="all" />
   </ItemGroup>

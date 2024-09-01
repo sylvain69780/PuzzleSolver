@@ -2,8 +2,13 @@
 @using Algorithms.AdventOfCode
 @using Algorithms.AdventOfCode.Y2023.Day20
 
-<StepController TInput="Input" TSolutions="Solutions" TState="State" Input="@input">
-    <p>Rendering state : @context.State.Message</p>
+<StepController TInput="Input" Input="@input" Solution="@solution1">
+    <p>Solution : @solution1.Solution</p>
+    <p>Interation : @context.Iteration</p>
+    <p>Delay : @context.Delay</p>
+</StepController>
+<StepController TInput="Input" Input="@input" Solution="@solution2">
+    <p>Solution : @solution1.Solution</p>
     <p>Interation : @context.Iteration</p>
     <p>Delay : @context.Delay</p>
 </StepController>
@@ -11,6 +16,8 @@
 @code
 {
     private Input? input;
+    private Solution1 solution1 = new Solution1();
+    private Solution2 solution2 = new Solution2();
     private KeyValuePair<string, string>[] files = [
         new KeyValuePair<string,string>("Example",$"sample-data/AdventOfCode/Y2023/Day20/{PuzzleHelper.GetPuzzleTitle(typeof(Solutions)).Replace(" ", "")}.txt"),
         new KeyValuePair<string,string>("Full",$"sample-data/AdventOfCode/Y2023/Day20/{PuzzleHelper.GetPuzzleTitle(typeof(Solutions)).Replace(" ", "")}_full.txt")

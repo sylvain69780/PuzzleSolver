@@ -1,8 +1,6 @@
 ﻿@using Algorithms
 @using System.Reflection
 @typeparam TInput
-@typeparam TState where TState : StateBase, new()
-@typeparam TSolutions
 
 <PageTitle>@title</PageTitle>
 
@@ -23,19 +21,16 @@
     else
     {
         <div>
-            @foreach (var method in methods)
-            {
-                <button class="btn btn-primary" @onclick="(e) => StartSolving(method.Method)">Solve @method.Name</button>
-            }
+                <button class="btn btn-primary" @onclick="(e) => StartSolving()">Solve</button>
         </div>
     }
 }
-@if (state is not null)
+@if (Solution is not null)
 {
-    <p class="p-2" role="status">Solution: @state.Message</p>
+    <p class="p-2" role="status">Solution: @Solution.Solution</p>
     if (ChildContent is not null)
     {
-        @ChildContent((delay, iteration, state))
+        @ChildContent((delay, iteration))
     }
 }
 
@@ -43,52 +38,44 @@
     [Parameter]
     public TInput? Input { get; set; }
     [Parameter]
-    public RenderFragment<(int Delay, int Iteration, TState State)>? ChildContent { get; set; }
+    public ISolution<TInput>? Solution { get; set; }
+    [Parameter]
+    public RenderFragment<(int Delay, int Iteration)>? ChildContent { get; set; }
 
-    private string title = PuzzleHelper.GetPuzzleTitle(typeof(TSolutions));
-    private List<(string Name, Func<TInput, IEnumerable<Func<TState>>> Method)> methods = PuzzleHelper.GetPuzzleMethods<TInput, TState>(typeof(TSolutions));
-    private TState? state;
+    private string title => Solution is null ? string.Empty : PuzzleHelper.GetPuzzleTitle(Solution.GetType());
+    //    private List<(string Name, Func<TInput, IEnumerable<Func<TSolution>>> Method)> methods = PuzzleHelper.GetPuzzleMethods<TInput, TSolution>(typeof(TSolutions));
     private int delay = 500;
     private bool isProcessing;
     private CancellationTokenSource? cts;
     private int iteration;
 
-    private async Task StartSolving(Func<TInput, IEnumerable<Func<TState>>> part)
+    private async Task StartSolving()
     {
         cts = new CancellationTokenSource();
         var token = cts.Token;
-        await Solve(part(Input!), token);
+        await Solve(token);
         StateHasChanged();
     }
 
-    private async Task Solve(IEnumerable<Func<TState>> steps, CancellationToken token)
+    private async Task Solve(CancellationToken token)
     {
         isProcessing = true;
         iteration = 0;
-        Func<TState>? s = null;
-        state = new TState
-        {
-            Message = "Running"
-        };
+        Solution!.Start(Input!);
         StateHasChanged();
         await Task.Delay(1);
-        foreach (var step in steps)
+        while (Solution.Solution is null)
         {
-            s = step;
+            Solution.Update();
             iteration++;
             if (delay > 0)
             {
-                state = step.Invoke();
                 StateHasChanged();
                 await Task.Delay(delay);
                 if (token.IsCancellationRequested)
-                {
-                    state.Message = "Processing Cancelled";
                     break;
-                }
             }
         }
-        state = s!.Invoke();
         isProcessing = false;
     }
 }
