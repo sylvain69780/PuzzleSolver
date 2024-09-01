@@ -10,19 +10,19 @@ namespace Algorithms.AdventOfCode.Y2023.Day20
         public string Solution { get; private set; }
 
         private IEnumerator<int> enumerator;
-        bool isRunning;
+        public bool IsRunning { get; private set; }
         public void Start(Input input)
         {
             var emum = PartTwo(input);
             enumerator = emum.GetEnumerator();
-            isRunning = true;
+            IsRunning = true;
             Solution = null;
         }
 
         public void Update()
         {
-            if (isRunning)
-                isRunning = enumerator.MoveNext();
+            if (IsRunning)
+                IsRunning = enumerator.MoveNext();
         }
 
         private IEnumerable<int> PartTwo(Input input)
