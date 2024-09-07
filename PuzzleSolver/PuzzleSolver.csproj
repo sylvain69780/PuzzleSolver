@@ -17,6 +17,7 @@
     <Content Remove="Pages\Bonus\Sudoku\Grid.razor" />
     <Content Remove="Pages\Bonus\Sudoku\Page.razor" />
     <Content Remove="Pages\Bonus\Sudoku\Visualization.razor" />
+    <Content Remove="Pages\DelayController.razor" />
   </ItemGroup>
 
   <ItemGroup>
@@ -33,6 +34,7 @@
     <None Include="Pages\Bonus\Sudoku\EmptyCell.razor" />
     <None Include="Pages\Bonus\Sudoku\Grid.razor" />
     <None Include="Pages\Bonus\Sudoku\Visualization.razor" />
+    <None Include="DelayController.razor" />
   </ItemGroup>
 
   <ItemGroup>
@@ -64,7 +66,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="Pages\StepController.razor">
+    <Content Update="StepController.razor">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
     </Content>
   </ItemGroup>

@@ -3,7 +3,7 @@
 @inject HttpClient Http
 
 <div>
-    <button class="btn-primary" @onclick="@( () => {isPuzzleInputVisible = !isPuzzleInputVisible; })">
+    <button class="btn btn-primary" @onclick="@( () => {isPuzzleInputVisible = !isPuzzleInputVisible; })">
         Toggle Puzzle input
     </button>
 </div>
@@ -14,7 +14,7 @@
         {
             var currentIndex = i;
             <div>
-                <button class="btn-primary" @onclick=@(async () => { selectedIndex = currentIndex; await LoadInput(); })>@((InputFiles[i]).Key)</button>
+                <button class="btn btn-primary" @onclick=@(async () => { selectedIndex = currentIndex; await LoadInput(); })>@((InputFiles[i]).Key)</button>
             </div>
         }
     </div>

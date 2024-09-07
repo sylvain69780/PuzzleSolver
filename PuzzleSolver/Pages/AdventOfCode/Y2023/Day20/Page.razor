@@ -1,25 +1,25 @@
 ﻿@page "/AdventOfCode/Y2023/Day20"
 @using Algorithms.AdventOfCode
 @using Algorithms.AdventOfCode.Y2023.Day20
-
-<StepController TInput="Input" Input="@input" Solution="@solution1">
-    <p>Solution : @solution1.Solution</p>
-    <p>Running : @solution1.IsRunning</p>
-    <p>Interation : @context.Iteration</p>
-    <p>Delay : @context.Delay</p>
-</StepController>
-<StepController TInput="Input" Input="@input" Solution="@solution2">
-    <p>Solution : @solution2.Solution</p>
-    <p>Running : @solution2.IsRunning</p>
-    <p>Interation : @context.Iteration</p>
-    <p>Delay : @context.Delay</p>
-</StepController>
+<h3>Choose Solution to Display:</h3>
+<button class="btn btn-primary" @onclick="() => selectedSolution = 1">Show Solution 1</button>
+<button class="btn btn-primary" @onclick="() => selectedSolution = 2">Show Solution 2</button>
+@if (selectedSolution == 1)
+{
+    <StepController TInput="Input" Input="@input" Solution="@solution1" Delay="@delay"/>
+} else if (selectedSolution == 2)
+{
+    <StepController TInput="Input" Input="@input" Solution="@solution2" Delay="@delay" />
+}
+<DelayController @bind-Delay=delay />
 <InputData InputFiles=@files TInput="Input" Parser="Parser.Parse" @bind-Input=input />
 @code
 {
+    private int delay = 1;
     private Input? input;
     private Solution1 solution1 = new Solution1();
     private Solution2 solution2 = new Solution2();
+    private int selectedSolution = 1;
     private KeyValuePair<string, string>[] files = [
         new KeyValuePair<string,string>("Example",$"sample-data/AdventOfCode/Y2023/Day20/{PuzzleHelper.GetPuzzleTitle(typeof(Solutions)).Replace(" ", "")}.txt"),
         new KeyValuePair<string,string>("Full",$"sample-data/AdventOfCode/Y2023/Day20/{PuzzleHelper.GetPuzzleTitle(typeof(Solutions)).Replace(" ", "")}_full.txt")

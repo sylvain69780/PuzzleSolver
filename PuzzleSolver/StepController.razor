@@ -2,49 +2,48 @@
 @using System.Reflection
 @typeparam TInput
 
-<PageTitle>@title</PageTitle>
+<p>@title</p>
 
-<h1>@title</h1>
-
-<input type="range" id="delayRange" @bind=delay min="0" max="1000">
-<div class="my-4">
-    <span class="p-2 rounded bg-light">@(delay == 0 ? "Fastest" : delay == 1000 ? "Animation Stopped" : $"Run a step every {delay} ms")</span>
-</div>
     @if (Input is not null)
 {
     @if (isProcessing)
     {
         <div>
-            <button class="btn btn-primary" @onclick="(e) => { cts?.Cancel();}">Cancel</button>
+            <button class="btn btn-primary" @onclick="(e) => { cts?.Cancel();}">
+             <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                Iteration @iteration ... Cancel
+            </button>
         </div>
     }
     else
     {
         <div>
-                <button class="btn btn-primary" @onclick="(e) => StartSolving()">Solve</button>
+            @if (Solution?.Solution is not null)
+            {
+                <span class="border rounded p-2">@($"Solution found is {Solution.Solution}")</span>
+            }
+            <button class="btn btn-primary" @onclick="(e) => StartSolving()">
+                @(Solution?.Solution is not null ? "Restart" : "Start")
+            </button>
         </div>
     }
 }
-@if (Solution is not null)
+@if (Solution is not null && ChildContent is not null)
 {
-    <p class="p-2" role="status">Solution: @Solution.Solution</p>
-    if (ChildContent is not null)
-    {
-        @ChildContent((delay, iteration))
-    }
+    @ChildContent(iteration)
 }
 
 @code {
+    [Parameter]
+    public int Delay { get; set; }
     [Parameter]
     public TInput? Input { get; set; }
     [Parameter]
     public ISolution<TInput>? Solution { get; set; }
     [Parameter]
-    public RenderFragment<(int Delay, int Iteration)>? ChildContent { get; set; }
+    public RenderFragment<int>? ChildContent { get; set; }
 
     private string title => Solution is null ? string.Empty : PuzzleHelper.GetPuzzleTitle(Solution.GetType());
-    //    private List<(string Name, Func<TInput, IEnumerable<Func<TSolution>>> Method)> methods = PuzzleHelper.GetPuzzleMethods<TInput, TSolution>(typeof(TSolutions));
-    private int delay = 500;
     private bool isProcessing;
     private CancellationTokenSource? cts;
     private int iteration;
@@ -68,10 +67,10 @@
         {
             Solution.Update();
             iteration++;
-            if (delay > 0)
+            if (Delay > 0)
             {
                 StateHasChanged();
-                await Task.Delay(delay);
+                await Task.Delay(Delay);
                 if (token.IsCancellationRequested)
                     break;
             }
