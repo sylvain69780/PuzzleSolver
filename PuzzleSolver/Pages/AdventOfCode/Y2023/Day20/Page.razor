@@ -1,16 +1,8 @@
 ﻿@page "/AdventOfCode/Y2023/Day20"
 @using Algorithms.AdventOfCode
 @using Algorithms.AdventOfCode.Y2023.Day20
-<h3>Choose Solution to Display:</h3>
-<button class="btn btn-primary" @onclick="() => selectedSolution = 1">Show Solution 1</button>
-<button class="btn btn-primary" @onclick="() => selectedSolution = 2">Show Solution 2</button>
-@if (selectedSolution == 1)
-{
-    <StepController TInput="Input" Input="@input" Solution="@solution1" Delay="@delay"/>
-} else if (selectedSolution == 2)
-{
-    <StepController TInput="Input" Input="@input" Solution="@solution2" Delay="@delay" />
-}
+<StepController TInput="Input" Input="@input" Solution="@(selectedSolution switch { 1 => solution1, 2 => solution2 })" Delay="@delay" />
+<button class="btn btn-primary" @onclick="() => {selectedSolution = selectedSolution == 1 ? 2 : 1;}">Show other solution</button>
 <DelayController @bind-Delay=delay />
 <InputData InputFiles=@files TInput="Input" Parser="Parser.Parse" @bind-Input=input />
 @code
