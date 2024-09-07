@@ -4,7 +4,7 @@ using System.Linq;
 namespace Algorithms.AdventOfCode.Y2023.Day22
 {
 
-    [Solution("Sand Slabs")]
+    [SolutionFinder("Sand Slabs")]
     public class Solutions
     {
         static List<(long x, long y, long z)> Cubes(((long x, long y, long z) start, (long x, long y, long z) end) brick)

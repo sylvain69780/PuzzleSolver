@@ -18,7 +18,7 @@ namespace PuzzleSolverTests.AdventOfCode.Y2023.Day20
             //    var customAttribute = (SolutionMethodAttribute)Attribute.GetCustomAttribute(method, typeof(SolutionMethodAttribute))!;
             //    strategies.Add((customAttribute.Description, (Func<Input, IEnumerable<Func<State>>>)method.CreateDelegate(typeof(Func<Input, IEnumerable<Func<State>>>))));
             //}
-            var solution1 = new Solution1();
+            var solution1 = new SolutionFinder1();
             solution1.Start(Parser.Parse(input));
             while (solution1.Solution is null)
                 solution1.Update();
@@ -31,7 +31,7 @@ namespace PuzzleSolverTests.AdventOfCode.Y2023.Day20
             while (solution1.Solution is null)
                 solution1.Update();
             Assert.Equal("818649769", solution1.Solution);
-            var solution2 = new Solution2();
+            var solution2 = new SolutionFinder2();
             solution2.Start(Parser.Parse(input2));
             while (solution2.Solution is null)
                 solution2.Update();

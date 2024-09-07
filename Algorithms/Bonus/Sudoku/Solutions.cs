@@ -6,7 +6,7 @@ using Algorithms;
 
 namespace Algorithms.Bonus.Sudoku
 {
-    [Solution("Sudoku")]
+    [SolutionFinder("Sudoku")]
     public class Solutions
     {
         private const string Digits = "123456789";

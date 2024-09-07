@@ -6,7 +6,7 @@ using System.Security.Cryptography;
 
 namespace Algorithms.AdventOfCode.Y2023.Day24
 {
-    [Solution("Never Tell Me The Odds")]
+    [SolutionFinder("Never Tell Me The Odds")]
     public class Solutions 
     {
 

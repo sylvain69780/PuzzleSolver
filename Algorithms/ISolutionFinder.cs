@@ -1,6 +1,6 @@
 ﻿namespace Algorithms
 {
-    public interface ISolution<TInput>
+    public interface ISolutionFinder<TInput>
     {
         string Solution { get; }
 

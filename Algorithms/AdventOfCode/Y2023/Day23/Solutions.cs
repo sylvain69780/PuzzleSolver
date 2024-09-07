@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Algorithms.AdventOfCode.Y2023.Day23
 {
-    [Solution("A Long Walk")]
+    [SolutionFinder("A Long Walk")]
     public class Solutions 
     {
 

@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Algorithms.AdventOfCode.Y2023.Day21
 {
-    [Solution("Step Counter")]
+    [SolutionFinder("Step Counter")]
     public class Solutions 
     {
         static readonly (int x, int y)[] Directions = new (int x, int y)[] {(1, 0), (-1, 0), (0, 1), (0, -1)};

@@ -7,8 +7,8 @@ using System.Xml.Linq;
 
 namespace Algorithms.AdventOfCode.Y2023.Day20
 {
-    [Solution("Pulse Propagation")]
-    public class Solutions
+    [SolutionFinder("Pulse Propagation")]
+    public class XXSolutionFinder2
     {
 
         private readonly static Func<State> _state = () => new State { Message = "In progress" };

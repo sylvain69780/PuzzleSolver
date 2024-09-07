@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Algorithms.AdventOfCode.Y2023.Day25
 {
-    [Solution("Snowverload")]
+    [SolutionFinder("Snowverload")]
     public class Solutions 
     {
     

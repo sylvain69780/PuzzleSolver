@@ -3,8 +3,8 @@ using System.Linq;
 
 namespace Algorithms.AdventOfCode.Y2023.Day20
 {
-    [Solution("Pulse Propagation - Part 1")]
-    public class Solution1 : ISolution<Input>
+    [SolutionFinder("Pulse Propagation - Part 1")]
+    public class SolutionFinder1 : ISolutionFinder<Input>
     {
         public string Solution { get; private set; }
 

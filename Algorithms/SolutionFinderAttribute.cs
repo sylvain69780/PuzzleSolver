@@ -3,11 +3,11 @@
 namespace Algorithms
 {
     [AttributeUsage(AttributeTargets.Class)]
-    public class SolutionAttribute : Attribute
+    public class SolutionFinderAttribute : Attribute
     {
         public string Description { get; }
 
-        public SolutionAttribute(string description)
+        public SolutionFinderAttribute(string description)
         {
             Description = description;
         }
