@@ -1,7 +1,5 @@
 ﻿@page "/AdventOfCode/Y2023/Day20"
 @using Algorithms.AdventOfCode.Y2023.Day20
-<button class="btn btn-primary" @onclick="() => {selectedSolution = (selectedSolution+1) % solutionFinders.Count;}">Show other solution</button>
-<InputData InputFiles=@files TInput="Input" Parser="Parser.Parse" @bind-Input=input />
-<StepController TInput="Input" Input="@input" Solution="@selectedSolutionFinder" Delay="@delay" />
-<button class="btn btn-primary" @onclick="selectedSolutionFinder.Update">Iterate</button>
-<DelayController @bind-Delay=delay />
+
+<SolutionFindersCollection TInput="Input" InputFiles="@files" SolutionFinders="@solutionFinders" Parse="Parser.Parse"/>
+

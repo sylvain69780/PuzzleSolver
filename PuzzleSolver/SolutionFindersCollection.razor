@@ -1,0 +1,11 @@
+﻿@typeparam TInput
+@using Algorithms
+
+<button class="btn btn-primary" @onclick="() => {selectedSolution = (selectedSolution+1) % SolutionFinders!.Count;}">Show other solution</button>
+<InputData InputFiles=@InputFiles TInput="TInput" Parser="Parse!" @bind-Input=input />
+<StepController TInput="TInput" Input="@input" Solution="@SelectedSolutionFinder" Delay="@delay" />
+<button class="btn btn-primary" @onclick="SelectedSolutionFinder.Update">Iterate</button>
+<DelayController @bind-Delay=delay />
+
+@code {
+}
