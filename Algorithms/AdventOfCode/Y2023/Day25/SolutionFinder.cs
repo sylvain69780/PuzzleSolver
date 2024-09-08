@@ -23,6 +23,7 @@ namespace Algorithms.AdventOfCode.Y2023.Day25
             var result = 0;
             while (!found)
             {
+                yield return 0;
                 var nodes = new List<string>(input.Nodes);
                 var edges = new List<(string a, string b)>(input.Edges);
                 while (nodes.Count >2)

@@ -70,7 +70,8 @@
         {
             if (Delay == 0)
             {
-                while (Solution.IsRunning)
+                var startingStep = Solution.Iteration;
+                while (Solution.IsRunning && Solution.Iteration - startingStep < 10000)
                     Solution.Update();
             } else
             {
