@@ -6,7 +6,7 @@
 
     @if (Input is not null)
 {
-    @if (Solution!.IsRunning || (cts?.Token.IsCancellationRequested ?? false))
+    @if (Solution!.IsRunning && ( ! cts?.Token.IsCancellationRequested ?? false))
     {
         <div>
             <button class="btn btn-primary" @onclick="(e) => { cts?.Cancel();}">
