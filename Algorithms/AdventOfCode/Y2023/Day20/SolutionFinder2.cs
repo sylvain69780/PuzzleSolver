@@ -4,8 +4,10 @@ using System.Linq;
 namespace Algorithms.AdventOfCode.Y2023.Day20
 {
     [SolutionFinder("Pulse Propagation - Part 2")]
-    public class SolutionFinder2 : SolutionFinderEnum<Input>
+    public class SolutionFinder2 : SolutionFinderEnum<Input>, IVisualizationInfo
     {
+        public string Info => throw new System.NotImplementedException();
+
         protected override IEnumerable<int> Steps(Input input)
         {
             var configuration = input.ModuleConfiguration;
