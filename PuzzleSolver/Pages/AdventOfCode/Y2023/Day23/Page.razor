@@ -1,0 +1,13 @@
+﻿@page "/AdventOfCode/Y2023/Day23"
+@using Algorithms.AdventOfCode.Y2023.Day23
+@using Algorithms
+
+<SolutionFindersCollection TInput="Input" Parse="Parser.Parse" InputFiles="@files" SolutionFinders="@solutionFinders" TVisualization="IVisualizationNone" />
+
+@code{
+    private List<ISolutionFinder<Input>> solutionFinders = [new SolutionFinder1(), new SolutionFinder2()];
+    private KeyValuePair<string, string>[] files = [
+        new KeyValuePair<string,string>("Example","sample-data/AdventOfCode/Y2023/Day23/ALongWalk.txt"),
+    new KeyValuePair<string,string>("Full","sample-data/AdventOfCode/Y2023/Day23/ALongWalk_full.txt")
+    ];
+}

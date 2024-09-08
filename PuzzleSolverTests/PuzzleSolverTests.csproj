@@ -10,6 +10,25 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="AdventOfCode\Y2023\Day21\Tests.cs" />
+    <Compile Remove="AdventOfCode\Y2023\Day22\Tests.cs" />
+    <Compile Remove="AdventOfCode\Y2023\Day23\Tests.cs" />
+    <Compile Remove="AdventOfCode\Y2023\Day24\Tests.cs" />
+    <Compile Remove="AdventOfCode\Y2023\Day25\Tests.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="AdventOfCode\Y2023\Day21\Tests.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="AdventOfCode\Y2023\Day22\Tests.cs" />
+    <None Include="AdventOfCode\Y2023\Day23\Tests.cs" />
+    <None Include="AdventOfCode\Y2023\Day24\Tests.cs" />
+    <None Include="AdventOfCode\Y2023\Day25\Tests.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.6.0" />
     <PackageReference Include="xunit" Version="2.4.2" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5">

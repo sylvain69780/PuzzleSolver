@@ -4,8 +4,8 @@ using System.Text;
 
 namespace Algorithms.AdventOfCode.Y2023.Day23
 {
-    [SolutionFinder("A Long Walk")]
-    public class Solutions 
+    [SolutionFinder("A Long Walk - Part 2")]
+    public class SolutionFinder2 : SolutionFinderEnum<Input>, IVisualizationNone
     {
 
         static (int x, int y)[] directions = new (int x, int y)[] { (1, 0), (-1, 0), (0, 1), (0, -1) };
@@ -28,85 +28,9 @@ namespace Algorithms.AdventOfCode.Y2023.Day23
                 return '#';
             return map[pos.y][pos.x];
         }
-        [SolutionMethod("Part 1")]
-        public static IEnumerable<State> PartOne(Input model)
-        {
-            var map = model.Map;
-            var start = (x: 1, y: 0);
-            var exit = (x: map[0].Length - 2, y: map.Length - 1);
-            var path = new Stack<(int x, int y)>();
-            path.Push(start);
-            var bfs = new Queue<Stack<(int x, int y)>>();
-            bfs.Enqueue(path);
-            var results = new List<int>();
-            var best = new List<(int x, int y)>();
-            while (bfs.Count > 0)
-            {
-                var stack = bfs.Dequeue();
-                var head = stack.Peek();
-                var forks = new List<List<(int x, int y)>>();
-                foreach (var dir in directions)
-                {
-                    var pos = (x: dir.x + head.x, y: dir.y + head.y);
-                    var tile = Tile(map, pos);
-                    if (tile == '#' || IsInpossible(tile, dir))
-                        continue;
-                    if (pos == exit)
-                    {
-                        stack.Push(pos);
-                        results.Add(stack.Count);
-                        best = stack.Reverse().ToList();
-                        continue;
-                    }
-                    if (TilesOk.Contains(tile) && !stack.Contains(pos))
-                    {
-                        var fork = new List<(int x, int y)>();
-                        if (tile != '.')
-                            fork.Add(pos);
-                        if (tile == '>')
-                            pos = (pos.x + 1, pos.y);
-                        if (tile == '<')
-                            pos = (pos.x - 1, pos.y);
-                        if (tile == '^')
-                            pos = (pos.x, pos.y - 1);
-                        if (tile == 'v')
-                            pos = (pos.x, pos.y + 1);
-                        fork.Add(pos);
-                        forks.Add(fork);
-                    }
-                }
-                if (forks.Count > 1)
-                    for (var i = 1; i < forks.Count; i++)
-                    {
-                        var l = forks[i];
-                        var newStack = stack.Clone();
-                        for (var j = 0; j < l.Count; j++)
-                            newStack.Push(l[j]);
-                        bfs.Enqueue(newStack);
-                    }
-                if (forks.Count > 0)
-                {
-                    forks[0].ForEach(p => stack.Push(p));
-                    bfs.Enqueue(stack);
-                }
-            }
-            foreach (var p in best)
-            {
-                var line = new StringBuilder(map[p.y]);
-                line[p.x] = 'O';
-                map[p.y] = line.ToString();
-                var test = string.Join("\n", map);
-            }
-            yield return new State
-            {
-                Message = (results.Max() - 1).ToString()
-            };
-        }
 
         // https://www.reddit.com/r/adventofcode/comments/18oy4pc/comment/kfyvp2g/
-
-        [SolutionMethod("Part 2")]
-        public static IEnumerable<State> PartTwo(Input model)
+        protected override IEnumerable<int> Steps(Input model)
         {
             var bfsMap = model.Map.Select(l => l.ToArray()).ToArray();
             var start = (x: 1, y: 0);
@@ -218,30 +142,8 @@ namespace Algorithms.AdventOfCode.Y2023.Day23
                 }
             }
 
-            yield return new State
-            {
-                Message = longestDistance.ToString()
-            };
-        }
-
-
-
-        static void Visu(List<(int x, int y)> best, string[] map)
-        {
-            var mapCopy = map.ToArray();
-            foreach (var p in best)
-            {
-                var line = new StringBuilder(mapCopy[p.y]);
-                line[p.x] = 'O';
-                mapCopy[p.y] = line.ToString();
-                //var test = string.Join('\n', mapCopy);
-            }
-            var test = string.Join("\n", mapCopy);
-        }
-
-        static void Visu2(char[][] map)
-        {
-            var test = string.Join("\n", map.Select(l => new string(l)));
+            Solution = longestDistance.ToString();
+            yield return 0;
         }
     }
 }
