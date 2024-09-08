@@ -10,13 +10,13 @@
 <div class=@(isPuzzleInputVisible ? null : "collapse")>
     <div>
         <label class="form-label">The data below is what is provided as example in the problem statement. You can paste your own user input.</label>
-        @for(var i = 0 ; i < InputFiles!.Length; i++)
-        {
-            var currentIndex = i;
-            <div>
-                <button class="btn btn-primary" @onclick=@(async () => { selectedIndex = currentIndex; await LoadInput(); })>@((InputFiles[i]).Key)</button>
-            </div>
-        }
+        <div class="d-flex justify-content-between">
+            @for (var i = 0; i < InputFiles!.Length; i++)
+            {
+                var currentIndex = i;
+                <button class="btn btn-primary flex-fill mx-1" @onclick=@(async () => { selectedIndex = currentIndex; await LoadInput(); })>@((InputFiles[i]).Key)</button>
+            }
+        </div>
     </div>
     <div>
         <pre><textarea spellcheck="false" class="form-control" aria-label="Puzzle Input" rows="10" @bind="inputStr" maxlength="10000000"></textarea></pre>
