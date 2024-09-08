@@ -20,20 +20,20 @@ namespace PuzzleSolverTests.AdventOfCode.Y2023.Day20
             //}
             var solution1 = new SolutionFinder1();
             solution1.Start(Parser.Parse(input));
-            while (solution1.Solution is null)
+            while (solution1.IsRunning)
                 solution1.Update();
             Assert.Equal("32000000", solution1.Solution);
             solution1.Start(Parser.Parse(input1));
-            while (solution1.Solution is null)
+            while (solution1.IsRunning)
                 solution1.Update();
             Assert.Equal("11687500", solution1.Solution);
             solution1.Start(Parser.Parse(input2));
-            while (solution1.Solution is null)
+            while (solution1.IsRunning)
                 solution1.Update();
             Assert.Equal("818649769", solution1.Solution);
             var solution2 = new SolutionFinder2();
             solution2.Start(Parser.Parse(input2));
-            while (solution2.Solution is null)
+            while (solution2.IsRunning)
                 solution2.Update();
             Assert.Equal("246313604784977", solution2.Solution);
         }

@@ -7,7 +7,7 @@ using Algorithms;
 namespace Algorithms.Bonus.Sudoku
 {
     [SolutionFinder("Sudoku")]
-    public class Solutions
+    public class SudokuSolutionFinder : SolutionFinderEnum<Input>, IVisualization
     {
         private const string Digits = "123456789";
         public static string Entropy(int position, string grid)
@@ -24,22 +24,18 @@ namespace Algorithms.Bonus.Sudoku
             res.Remove('.');
             return string.Concat(Digits.Where(d => !res.Contains(d)));
         }
-        [SolutionMethod("Sudoku")]
-        public static IEnumerable<Func<State>> Sudoku(Input input)
+        public string Grid { get; private set; } 
+        public Stack<string> Queue { get; private set; }
+        protected override IEnumerable<int> Steps(Input input)
         {
-            var dfs = new Stack<string>();
-            dfs.Push(input.Grid);
-            var puzzleState = string.Empty;
-            State stateFunc() => new State
+            Queue = new Stack<string>();
+            Queue.Push(input.Grid);
+            Grid = string.Empty;
+            while (Queue.TryPop(out var grid))
             {
-                Message = "Seaching ...",
-                Grid = puzzleState,
-                Queue = dfs
-            };
-            while (dfs.TryPop(out puzzleState))
-            {
-                yield return stateFunc;
-                var emptySlots = Enumerable.Range(0, 9 * 9).Where(x => puzzleState[x] == '.').ToArray();
+                Grid = grid;
+                yield return 0;
+                var emptySlots = Enumerable.Range(0, 9 * 9).Where(x => Grid[x] == '.').ToArray();
                 if (emptySlots.Length == 0)
                 {
                     // the solution is found
@@ -47,24 +43,21 @@ namespace Algorithms.Bonus.Sudoku
                 }
                 else
                 {
-                    var slotWithMinimalEntropy = emptySlots.Select(x => (p: x, e: Entropy(x, puzzleState))).OrderBy(x => x.e.Length).ThenBy(x => x.p).First();
+                    var slotWithMinimalEntropy = emptySlots.Select(x => (p: x, e: Entropy(x, Grid))).OrderBy(x => x.e.Length).ThenBy(x => x.p).First();
                     var (p, e) = slotWithMinimalEntropy;
                     if (e == string.Empty)
                     {
                         continue;
                     }
-                    var sb = new StringBuilder(puzzleState);
+                    var sb = new StringBuilder(Grid);
                     for (var i = 0; i < e.Length; i++)
                     {
                         sb[p] = e[i];
-                        dfs.Push(sb.ToString());
+                        Queue.Push(sb.ToString());
                     }
                 }
-                if (dfs.Count == 0)
-                    yield return () => new State
-                    {
-                        Message = "No solution found"
-                    };
+                if (Queue.Count == 0)
+                    yield return 0;
             }
         }
     }
