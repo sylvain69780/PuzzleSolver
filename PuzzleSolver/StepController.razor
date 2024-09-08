@@ -11,7 +11,7 @@
         <div>
             <button class="btn btn-primary" @onclick="(e) => { cts?.Cancel();}">
              <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                Iteration @iteration ... Cancel
+                Iteration @Solution?.Iteration ... Cancel
             </button>
         </div>
     }
@@ -30,7 +30,7 @@
 }
 @if (Solution is not null && ChildContent is not null)
 {
-    @ChildContent(iteration)
+    @ChildContent(Solution)
 }
 
 @code {
@@ -41,12 +41,11 @@
     [Parameter]
     public ISolutionFinder<TInput>? Solution { get; set; }
     [Parameter]
-    public RenderFragment<int>? ChildContent { get; set; }
+    public RenderFragment<ISolutionFinder<TInput>>? ChildContent { get; set; }
 
     private string title => Solution is null ? string.Empty : PuzzleHelper.GetPuzzleTitle(Solution.GetType());
     private bool isProcessing;
     private CancellationTokenSource? cts;
-    private int iteration;
 
     private async Task StartSolving()
     {
@@ -59,14 +58,12 @@
     private async Task Solve(CancellationToken token)
     {
         isProcessing = true;
-        iteration = 0;
         Solution!.Start(Input!);
         StateHasChanged();
         await Task.Delay(1);
         while (Solution.Solution is null)
         {
             Solution.Update();
-            iteration++;
             if (Delay > 0)
             {
                 StateHasChanged();

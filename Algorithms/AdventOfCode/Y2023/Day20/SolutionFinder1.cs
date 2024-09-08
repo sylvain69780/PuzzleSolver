@@ -1,30 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Algorithms.AdventOfCode.Y2023.Day20
 {
     [SolutionFinder("Pulse Propagation - Part 1")]
-    public class SolutionFinder1 : ISolutionFinder<Input>
+    public class SolutionFinder1 : SolutionFinderEnum<Input>
     {
-        public string Solution { get; private set; }
-
-        private IEnumerator<int> enumerator;
-        public bool IsRunning { get; private set; }
-        public void Start(Input input)
-        {
-            var emum = PartOne(input);
-            enumerator = emum.GetEnumerator();
-            IsRunning = true;
-            Solution = null;
-        }
-
-        public void Update()
-        {
-            if (IsRunning)
-                IsRunning = enumerator.MoveNext();
-        }
-
-        private IEnumerable<int> PartOne(Input input)
+        protected override IEnumerable<int> Steps(Input input)
         {
             var configuraton = input.ModuleConfiguration;
             var flipFlops = configuraton
@@ -81,5 +64,6 @@ namespace Algorithms.AdventOfCode.Y2023.Day20
             Solution = (high * low).ToString();
             yield return 0;
         }
+
     }
 }

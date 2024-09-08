@@ -5,27 +5,9 @@ using System.Linq;
 namespace Algorithms.AdventOfCode.Y2023.Day20
 {
     [SolutionFinder("Pulse Propagation - Part 2")]
-    public class SolutionFinder2 : ISolutionFinder<Input>
+    public class SolutionFinder2 : SolutionFinderEnum<Input>
     {
-        public string Solution { get; private set; }
-
-        private IEnumerator<int> enumerator;
-        public bool IsRunning { get; private set; }
-        public void Start(Input input)
-        {
-            var emum = PartTwo(input);
-            enumerator = emum.GetEnumerator();
-            IsRunning = true;
-            Solution = null;
-        }
-
-        public void Update()
-        {
-            if (IsRunning)
-                IsRunning = enumerator.MoveNext();
-        }
-
-        private IEnumerable<int> PartTwo(Input input)
+        protected override IEnumerable<int> Steps(Input input)
         {
             var configuration = input.ModuleConfiguration;
             var flipFlops = configuration
@@ -37,7 +19,7 @@ namespace Algorithms.AdventOfCode.Y2023.Day20
                 .ToDictionary(x => x.name, x => x.connected);
             var types = configuration.ToDictionary(x => x.name, x => x.type);
             var destinations = configuration.ToDictionary(x => x.name, x => x.destinations);
- 
+
             var connectedToRx = configuration.Single(x => x.destinations.Contains("rx")).name;
             var modulesTargingIt = configuration.Where(x => x.destinations.Contains(connectedToRx)).Select(x => x.name).ToArray();
             var counters = modulesTargingIt.Select(x => (name: x, occu: new List<(int count, int time, int period)>())).ToDictionary(x => x.name, x => x.occu);
