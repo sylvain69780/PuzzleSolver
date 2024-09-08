@@ -1,4 +1,5 @@
 ﻿@typeparam TInput
+@typeparam TVisualization
 @using Algorithms
 
 <button class="btn btn-primary" @onclick="() => {selectedSolution = (selectedSolution+1) % SolutionFinders!.Count;}">Show other solution</button>
@@ -7,5 +8,7 @@
 <button class="btn btn-primary" @onclick="SelectedSolutionFinder.Update">Iterate</button>
 <DelayController @bind-Delay=delay />
 
-@code {
+@if (SelectedSolutionFinder is not null && ChildContent is not null)
+{
+    @ChildContent(Visualisation)
 }

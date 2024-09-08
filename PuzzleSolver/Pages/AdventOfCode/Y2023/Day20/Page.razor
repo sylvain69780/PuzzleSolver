@@ -1,5 +1,9 @@
 ﻿@page "/AdventOfCode/Y2023/Day20"
 @using Algorithms.AdventOfCode.Y2023.Day20
 
-<SolutionFindersCollection TInput="Input" InputFiles="@files" SolutionFinders="@solutionFinders" Parse="Parser.Parse"/>
+<SolutionFindersCollection TInput="Input" InputFiles="@files" SolutionFinders="@solutionFinders" Parse="Parser.Parse" TVisualization="IVisualizationInfo">
+    <p>
+        @context.Info
+    </p>
+</SolutionFindersCollection>
 

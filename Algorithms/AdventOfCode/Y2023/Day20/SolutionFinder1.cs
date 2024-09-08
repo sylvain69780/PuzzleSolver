@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace Algorithms.AdventOfCode.Y2023.Day20
 {
     [SolutionFinder("Pulse Propagation - Part 1")]
-    public class SolutionFinder1 : SolutionFinderEnum<Input>
+    public class SolutionFinder1 : SolutionFinderEnum<Input> , IVisualizationInfo
     {
+        public string Info { get; private set; } = "Bonour";
+
         protected override IEnumerable<int> Steps(Input input)
         {
             var configuraton = input.ModuleConfiguration;
