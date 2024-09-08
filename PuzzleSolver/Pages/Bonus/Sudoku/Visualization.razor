@@ -4,7 +4,7 @@
     @{
         var cell = grid[context.x + context.y * 9];
         var previousCell = previousGrid[context.x + context.y * 9];
-        var inputCell = input[context.x + context.y * 9];
+        var inputCell = input?[context.x + context.y * 9];
     }
     @if (cell != '.')
     {
@@ -23,22 +23,24 @@
 
 @code {
     [Parameter]
-    public State? State { get; set; }
+    public IVisualization? VisualizationParam { get; set; }
     [Parameter]
     public Input? Input { get; set; }
     private string[] dfs = Array.Empty<string>();
 
     private string grid = new string('.', 81);
     private string previousGrid = new string('.', 81);
-    private string input = new string('.', 81);
+    private string? input = new string('.', 81);
 
     protected override void OnParametersSet()
     {
-        dfs = State!.Queue.ToArray();
-        previousGrid = grid;
-        grid = State.Grid;
-        input = Input!.Grid;
+        if (VisualizationParam?.Queue is not null)
+        {
+            dfs = VisualizationParam!.Queue.ToArray();
+            previousGrid = grid;
+            grid = VisualizationParam.Grid;
+            input = Input?.Grid;
+        }
         base.OnParametersSet();
     }
-
 }

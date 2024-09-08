@@ -6,12 +6,12 @@
 
     @if (Input is not null)
 {
-    @if (isProcessing)
+    @if (Solution!.IsRunning || (cts?.Token.IsCancellationRequested ?? false))
     {
         <div>
             <button class="btn btn-primary" @onclick="(e) => { cts?.Cancel();}">
              <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                Iteration @Solution?.Iteration ... Cancel
+                Iteration @Solution.Iteration ... Cancel
             </button>
         </div>
     }
@@ -42,36 +42,50 @@
     public ISolutionFinder<TInput>? Solution { get; set; }
     [Parameter]
     public RenderFragment<ISolutionFinder<TInput>>? ChildContent { get; set; }
+    [Parameter]
+    public EventCallback OnValueChanged { get; set; }
 
     private string title => Solution is null ? string.Empty : PuzzleHelper.GetPuzzleTitle(Solution.GetType());
-    private bool isProcessing;
     private CancellationTokenSource? cts;
+    private System.Timers.Timer? _timer;
 
-    private async Task StartSolving()
+    private void StartSolving()
     {
+        Solution!.Start(Input!);
         cts = new CancellationTokenSource();
-        var token = cts.Token;
-        await Solve(token);
-        StateHasChanged();
+        _timer = new(Delay);
+        _timer.Elapsed += Solve;
+        _timer.AutoReset = true;
+        _timer.Enabled = true;
+        _timer.Start();
     }
 
-    private async Task Solve(CancellationToken token)
+    private void Solve(object? sender, System.Timers.ElapsedEventArgs e)
     {
-        isProcessing = true;
-        Solution!.Start(Input!);
-        StateHasChanged();
-        await Task.Delay(1);
-        while (Solution.Solution is null)
+        if (Solution!.IsRunning == false || cts!.Token.IsCancellationRequested)
         {
-            Solution.Update();
-            if (Delay > 0)
+            _timer!.Enabled = false;
+        }
+        else
+        {
+            if (Delay == 0)
             {
-                StateHasChanged();
-                await Task.Delay(Delay);
-                if (token.IsCancellationRequested)
-                    break;
+                while (Solution.IsRunning)
+                    Solution.Update();
+            } else
+            {
+                Solution.Update();
             }
         }
-        isProcessing = false;
+        OnValueChanged.InvokeAsync();
     }
+
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+        if (Delay >0 && _timer is not null)
+            _timer.Interval = Delay;
+
+    }
+
 }

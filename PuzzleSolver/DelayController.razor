@@ -1,6 +1,6 @@
 ﻿<div class="my-4">
     <input type="range" id="delayRange" value="@Delay" @oninput="OnDelayChanged" min="0" max="1000" onchange="DelayChanged(Delay)">
-    <span class="p-2 rounded bg-light">@(Delay == 0 ? "Fastest" : Delay == 1000 ? "Animation Stopped" : $"Runs a step every {Delay} ms")</span>
+    <span class="p-2 rounded bg-light">@(Delay == 0 ? "Fastest" : $"Runs a step every {Delay} ms")</span>
 </div>
 
 @code {

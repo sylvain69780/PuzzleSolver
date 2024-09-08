@@ -24,16 +24,17 @@ namespace Algorithms.Bonus.Sudoku
             res.Remove('.');
             return string.Concat(Digits.Where(d => !res.Contains(d)));
         }
-        public string Grid { get; private set; } 
+        public string Grid { get; private set; }
+
         public Stack<string> Queue { get; private set; }
         protected override IEnumerable<int> Steps(Input input)
         {
             Queue = new Stack<string>();
             Queue.Push(input.Grid);
             Grid = string.Empty;
-            while (Queue.TryPop(out var grid))
+            while (Queue.Count>0)
             {
-                Grid = grid;
+                Grid = Queue.Pop();
                 yield return 0;
                 var emptySlots = Enumerable.Range(0, 9 * 9).Where(x => Grid[x] == '.').ToArray();
                 if (emptySlots.Length == 0)

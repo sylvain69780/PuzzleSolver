@@ -2,21 +2,34 @@
 @using Algorithms
 @using Algorithms.Bonus.Sudoku
 @using PuzzleSolver.Pages.Bonus.Sudoku
+@using PuzzleSolver
 
-<p class="p-1">
-    This is a Sudoku solver, and it has really no relation with Advent Of Code !
-</p>
-<p class="p-1">
-    All empty cells are adorned with the count of potential numbers.
-    When the count of potential numbers is greater than 1, we should make a guess and explore until an inconsistency arises (colored in red).
-    The visualization displays a guessed number in blue.
-    The number of dots under the numbers indicates the depth of the search.
-</p>
+<SolutionFindersCollection TInput="Input" Parse="Parser.Parse" InputFiles="@files" SolutionFinders="@solutionFinders" TVisualization="IVisualization">
+    <p class="p-1">
+        This is a Sudoku solver, and it has really no relation with Advent Of Code !
+    </p>
+    <p class="p-1">
+        All empty cells are adorned with the count of potential numbers.
+        When the count of potential numbers is greater than 1, we should make a guess and explore until an inconsistency arises (colored in red).
+        The visualization displays a guessed number in blue.
+        The number of dots under the numbers indicates the depth of the search.
+    </p>
+    <p>
+        Grid : @context.Grid
+    </p>
+    <p>
+        Queue : @(context.Queue?.Count.ToString())
+    </p>
+    <Visualization VisualizationParam="@context" Input="@input" />
+</SolutionFindersCollection>
+
 @code
 {
     private Input? input;
+    private List<ISolutionFinder<Input>> solutionFinders = [new SudokuSolutionFinder()];
+
     private KeyValuePair<string, string>[] files = [
         new KeyValuePair<string,string>("Example 1","sample-data/Bonus/Sudoku/Sudoku.txt"),
-    new KeyValuePair<string,string>("Example 2","sample-data/Bonus/Sudoku/Sudoku_full.txt")
+     new KeyValuePair<string,string>("Example 2","sample-data/Bonus/Sudoku/Sudoku_full.txt")
     ];
 }

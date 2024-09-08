@@ -13,10 +13,6 @@
     <Content Remove="Pages\AdventOfCode\Y2023\Day23\Page.razor" />
     <Content Remove="Pages\AdventOfCode\Y2023\Day24\Page.razor" />
     <Content Remove="Pages\AdventOfCode\Y2023\Day25\Page.razor" />
-    <Content Remove="Pages\Bonus\Sudoku\EmptyCell.razor" />
-    <Content Remove="Pages\Bonus\Sudoku\Grid.razor" />
-    <Content Remove="Pages\Bonus\Sudoku\Page.razor" />
-    <Content Remove="Pages\Bonus\Sudoku\Visualization.razor" />
     <Content Remove="Pages\DelayController.razor" />
     <Content Remove="Pages\GenericPage.razor" />
   </ItemGroup>
