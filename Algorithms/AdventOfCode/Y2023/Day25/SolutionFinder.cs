@@ -6,11 +6,10 @@ using System.Text;
 namespace Algorithms.AdventOfCode.Y2023.Day25
 {
     [SolutionFinder("Snowverload")]
-    public class Solutions 
+    public class SolutionFinder : SolutionFinderEnum<Input>,IVisualizationNone
     {
     
-        [SolutionMethod("Part 1")]
-        public static IEnumerable<State> PartOne(Input input)
+        protected override IEnumerable<int> Steps(Input input)
         {
             var neighbours = input.Edges.GroupBy(x => x.a).ToDictionary(x => x.Key, x => x.Select(y => y.b).ToArray());
             var node = input.Nodes[0];
@@ -48,10 +47,8 @@ namespace Algorithms.AdventOfCode.Y2023.Day25
                 if (found)
                     result = (nodes[0].Count(c => c == '-')+1) * (nodes[1].Count(c => c == '-') + 1);
             }
-            yield return new State
-            {
-                Message = result.ToString()
-            };
+            Solution = result.ToString();
+            yield return 0;
         }
     }
 }

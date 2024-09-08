@@ -36,8 +36,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Pages\AdventOfCode\Y2023\Day24\" />
-    <Folder Include="Pages\AdventOfCode\Y2023\Day25\" />
     <Folder Include="wwwroot\sample-data\AdventOfCode\Y2023\Day21\" />
     <Folder Include="wwwroot\sample-data\AdventOfCode\Y2023\Day24\" />
     <Folder Include="wwwroot\sample-data\AdventOfCode\Y2023\Day25\" />

@@ -6,78 +6,11 @@ using System.Security.Cryptography;
 
 namespace Algorithms.AdventOfCode.Y2023.Day24
 {
-    [SolutionFinder("Never Tell Me The Odds")]
-    public class Solutions 
+    [SolutionFinder("Never Tell Me The Odds - Part 2")]
+    public class SolutionFinder2 : SolutionFinderEnum<Input>, IVisualizationNone
     {
 
-        [SolutionMethod("Part 1")]
-        public static IEnumerable<State> PartOne(Input input)
-        {
-            var stones = input.Hailstones;
-            (long lower, long upper) = stones.Length <= 5 ? (7, 27) : (200000000000000, 400000000000000);
-            var counter = 0;
-            bool IsIntersecting(((long x, long y, long z) position, (long x, long y, long z) velocity) ray1, ((long x, long y, long z) position, (long x, long y, long z) velocity) ray2)
-            {
-                var ro1 = ray1.position;
-                var ro2 = ray2.position;
-                var rd1 = ray1.velocity;
-                var rd2 = ray2.velocity;
-                /*
-                    ro1+t1*rd1 == ro1+t2*rd1
-
-                    ro1.x + t1 * rd1.x = ro2.x + t2 * rd2.x // t1 * rd1.x - t2 * rd2.x = (ro2.x - ro1.x) 
-                    ro1.y + t1 * rd1.y = ro2.y + t2 * rd2.y
-
-                    t1 = (ro2.x + t2 * rd2.x) / rd1.x - ro1.x
-                    t2 = (ro1.y + t1 * rd1.x) / rd2.x - ro2.x
-                   
-                */
-                var s = (x: ro2.x - ro1.x, y: ro2.y - ro1.y);
-                var a = (decimal)rd1.x;
-                var b = (decimal)-rd2.x;
-                var c = (decimal)rd1.y;
-                var d = (decimal)-rd2.y;
-                var e = (decimal)s.x;
-                var f = (decimal)s.y;
-
-                // parallel DET is zero
-                var det = a * d - b * c;
-                if (det == 0)
-                    if (e * c - f * a == 0)
-                        return true;
-                    else
-                        return false;
-                else
-                {
-                    var t1 = (e * d - b * f) / det;
-                    var t2 = (a * f - e * c) / det;
-                    if (t1 >= 0 && t2 >= 0)
-                    {
-                        var p = (x: t1 * a + (decimal)ro1.x, y: t1 * c + (decimal)ro1.y);
-                        if (p.x >= lower && p.y >= lower && p.x <= upper && p.y <= upper)
-                            return true;
-                        else
-                            return false;
-                    }
-                    else
-                        return false;
-                }
-            }
-            for (var i = 0; i < stones.Length - 1; i++)
-                for (var j = i + 1; j < stones.Length; j++)
-                {
-                    if (IsIntersecting(stones[i], stones[j]))
-                        counter++;
-                }
-
-            yield return new State
-            {
-                Message = counter.ToString()
-            };
-        }
-
-        [SolutionMethod("Part 2")]
-        public static IEnumerable<State> PartTwo(Input input)
+        protected override IEnumerable<int> Steps(Input input)
         {
             var stones = input.Hailstones;
 
@@ -195,10 +128,8 @@ var zc = cz1 - (zm * t1);
 
             */
 
-            yield return new State
-            {
-                Message = response.ToString()
-            };
+            Solution = response.ToString();
+            yield return 0;
         }
 
         public static BigInteger[] SolveCramer(BigInteger[][] equations)
