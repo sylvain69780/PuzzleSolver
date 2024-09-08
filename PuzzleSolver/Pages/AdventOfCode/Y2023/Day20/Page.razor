@@ -4,3 +4,11 @@
 
 <SolutionFindersCollection TInput="Input" Parse="Parser.Parse" InputFiles="@files" SolutionFinders="@solutionFinders" TVisualization="IVisualizationInfo" />
 
+@code{
+    private List<ISolutionFinder<Input>> solutionFinders = [new SolutionFinder1(), new SolutionFinder2()];
+    private KeyValuePair<string, string>[] files = [
+        new KeyValuePair<string,string>("Example","sample-data/AdventOfCode/Y2023/Day20/PulsePropagation.txt"),
+        new KeyValuePair<string,string>("Example2","sample-data/AdventOfCode/Y2023/Day20/PulsePropagation2.txt"),
+        new KeyValuePair<string,string>("Full","sample-data/AdventOfCode/Y2023/Day20/PulsePropagation_full.txt")
+    ];
+}

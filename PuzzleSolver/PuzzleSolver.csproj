@@ -8,13 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="Pages\AdventOfCode\Y2023\Day21\Page.razor" />
-    <Content Remove="Pages\AdventOfCode\Y2023\Day22\Page.razor" />
-    <Content Remove="Pages\AdventOfCode\Y2023\Day23\Page.razor" />
-    <Content Remove="Pages\AdventOfCode\Y2023\Day24\Page.razor" />
-    <Content Remove="Pages\AdventOfCode\Y2023\Day25\Page.razor" />
-    <Content Remove="Pages\DelayController.razor" />
-    <Content Remove="Pages\GenericPage.razor" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,25 +15,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Pages\AdventOfCode\Y2023\Day25\Page.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Pages\AdventOfCode\Y2023\Day23\Page.razor" />
-    <None Include="Pages\AdventOfCode\Y2023\Day24\Page.razor" />
     <None Include="Pages\Bonus\Sudoku\EmptyCell.razor" />
     <None Include="Pages\Bonus\Sudoku\Grid.razor" />
     <None Include="Pages\Bonus\Sudoku\Visualization.razor" />
     <None Include="DelayController.razor" />
     <None Include="SolutionFindersCollection.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Page Include="Pages\AdventOfCode\Y2023\Day22\Page.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Pages\AdventOfCode\Y2023\Day21\Page.razor" />
   </ItemGroup>
 
   <ItemGroup>
@@ -57,6 +36,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Pages\AdventOfCode\Y2023\Day23\" />
+    <Folder Include="Pages\AdventOfCode\Y2023\Day24\" />
+    <Folder Include="Pages\AdventOfCode\Y2023\Day25\" />
     <Folder Include="wwwroot\sample-data\AdventOfCode\Y2023\Day21\" />
     <Folder Include="wwwroot\sample-data\AdventOfCode\Y2023\Day24\" />
     <Folder Include="wwwroot\sample-data\AdventOfCode\Y2023\Day25\" />

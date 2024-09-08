@@ -4,8 +4,8 @@ using System.Linq;
 namespace Algorithms.AdventOfCode.Y2023.Day22
 {
 
-    [SolutionFinder("Sand Slabs")]
-    public class Solutions
+    [SolutionFinder("Sand Slabs - Part 2")]
+    public class SolutionFinder2 : SolutionFinderEnum<Input>, IVisualizationNone
     {
         static List<(long x, long y, long z)> Cubes(((long x, long y, long z) start, (long x, long y, long z) end) brick)
         {
@@ -18,22 +18,6 @@ namespace Algorithms.AdventOfCode.Y2023.Day22
                     }
             return cubes;
         }
-        [SolutionMethod("Part 1")]
-        public static IEnumerable<State> PartOne(Input model)
-        {
-            var bricks = model.Bricks;
-            List<(int brick, int supports)> supports = SimulateFall(bricks);
-
-            var count = 0;
-            for (var i = 0; i < bricks.Count; i++)
-            {
-                var supported = supports.Where(s => s.brick == i).Select(s => s.supports).ToList();
-                if (supported.Count == 0 || supported.All(s => supports.Any(ss => ss.brick != i && ss.supports == s)))
-                    count++;
-            }
-            yield return new State() { Message = count.ToString() };
-        }
-
         private static List<(int brick, int supports)> SimulateFall(List<((long x, long y, long z) start, (long x, long y, long z) end)> bricks)
         {
             var moveOccured = true;
@@ -71,8 +55,7 @@ namespace Algorithms.AdventOfCode.Y2023.Day22
                 .Where(b => b.brick != b.supports).Distinct().ToList();
             return supports;
         }
-        [SolutionMethod("Part 2")]
-        public static IEnumerable<State> PartTwo(Input model)
+        protected override IEnumerable<int> Steps(Input model)
         {
             var bricks = model.Bricks;
             List<(int brick, int supports)> supports = SimulateFall(bricks);
@@ -82,13 +65,13 @@ namespace Algorithms.AdventOfCode.Y2023.Day22
             {
                 var listOfBricks = Enumerable.Range(0, bricks.Count).Where(x => x != i && bricks[x].start.z > 1).ToList();
                 var remainingSupports = supports.Where(s => s.brick != i).ToList();
-                var isKeepFalling= true;
+                var isKeepFalling = true;
                 while (isKeepFalling)
                 {
                     isKeepFalling = false;
                     var supporting = remainingSupports.Select(x => x.supports).ToHashSet();
                     var falling = listOfBricks.Where(x => !supporting.Contains(x)).ToList();
-                    if ( falling.Count > 0 )
+                    if (falling.Count > 0)
                     {
                         isKeepFalling = true;
                         count += falling.Count;
@@ -97,10 +80,9 @@ namespace Algorithms.AdventOfCode.Y2023.Day22
                     }
                 }
             }
-            yield return new State()
-            {
-                Message = count.ToString()
-            };
+            Solution = count.ToString();
+            yield return 0;
+
         }
     }
 }

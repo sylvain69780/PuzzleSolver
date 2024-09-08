@@ -1,17 +1,13 @@
 ﻿@page "/AdventOfCode/Y2023/Day21"
-@using Algorithms.AdventOfCode
 @using Algorithms.AdventOfCode.Y2023.Day21
-@inject HttpClient Http
+@using Algorithms
 
-<StepController TInput="Input" TSolutions="Solutions" TState="State" Input="@input"/>
+<SolutionFindersCollection TInput="Input" Parse="Parser.Parse" InputFiles="@files" SolutionFinders="@solutionFinders" TVisualization="IVisualizationNone" />
 
-@code 
-{
-    private Input? input;
-    protected override async Task OnInitializedAsync()
-    {
-        // await Task.Delay(5000);
-        var s = await Http.GetStringAsync($"sample-data/AdventOfCode/Y2023/Day21/{PuzzleHelper.GetPuzzleTitle(typeof(Solutions)).Replace(" ", "")}_full.txt");
-        input = Parser.Parse(s.Replace("\r", ""));
-    }
+@code{
+    private List<ISolutionFinder<Input>> solutionFinders = [new SolutionFinder1(), new SolutionFinder2()];
+    private KeyValuePair<string, string>[] files = [
+        new KeyValuePair<string,string>("Example","sample-data/AdventOfCode/Y2023/Day21/StepCounter.txt"),
+    new KeyValuePair<string,string>("Full","sample-data/AdventOfCode/Y2023/Day21/StepCounter_full.txt")
+    ];
 }
