@@ -1,5 +1,6 @@
 ﻿@using Algorithms
 @using System.Reflection
+@using System.Diagnostics
 @typeparam TInput
 
 <p>@title</p>
@@ -70,8 +71,8 @@
         {
             if (Delay == 0)
             {
-                var startingStep = Solution.Iteration;
-                while (Solution.IsRunning && Solution.Iteration - startingStep < 10000)
+                var stopwatch = Stopwatch.StartNew();
+                while (Solution.IsRunning && stopwatch.ElapsedMilliseconds < 1000)
                     Solution.Update();
             } else
             {
