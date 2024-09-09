@@ -33,11 +33,11 @@
       "url": "_framework\/icudt_no_CJK.dat"
     },
     {
-      "hash": "sha256-65ztjOMO7x7tUQg9Ff+4EjZlqzopXtBo0p+BF+PBeHo=",
+      "hash": "sha256-sDNXT4jQUrqOQuDoDNrbZ+A6ty1Jia3TeeNGLLoqBgM=",
       "url": "_framework\/blazor.boot.json"
     },
     {
-      "hash": "sha256-21BLeARz33tVy56J0a7nfz297hZ\/vqz8jXe3RJaCXaY=",
+      "hash": "sha256-QtBPUH72Ne16noxpmG5UutCwsYfPOfmYioXAhokjeE0=",
       "url": "_framework\/Algorithms.wasm"
     },
     {
@@ -101,7 +101,7 @@
       "url": "_framework\/netstandard.wasm"
     },
     {
-      "hash": "sha256-Tw+DK0cg0tfwVJdSX69pE7JrBW5BxToR3WRoqJgNcNU=",
+      "hash": "sha256-Fsev3crUIh2Z4vQABT\/vleuMmiE65cpEkelBWIu68tE=",
       "url": "_framework\/PuzzleSolver.wasm"
     },
     {
@@ -157,7 +157,7 @@
       "url": "_framework\/System.ObjectModel.wasm"
     },
     {
-      "hash": "sha256-FVfA25dqJy\/gv3n8V+MQRVEMb+jFcCv8p6Z2T\/fPDm8=",
+      "hash": "sha256-PS84ls4SBVGNXaKYup25jlxMayMU+r5GaoV4MX345tg=",
       "url": "_framework\/System.Private.CoreLib.wasm"
     },
     {
@@ -177,7 +177,7 @@
       "url": "_framework\/System.Runtime.Numerics.wasm"
     },
     {
-      "hash": "sha256-Wg47hP\/7YoAGQy5463CQnuEuXDIPS0jhz+SINbeUiHI=",
+      "hash": "sha256-8c1K4mbV7gdskYcrdxyqOdjAj\/Zm16SgOtEkgpM8S3o=",
       "url": "_framework\/System.Runtime.wasm"
     },
     {
@@ -297,5 +297,5 @@
       "url": "sample-data\/weather.json"
     }
   ],
-  "version": "RiDyS9Ju"
+  "version": "HvXvoCxz"
 };
