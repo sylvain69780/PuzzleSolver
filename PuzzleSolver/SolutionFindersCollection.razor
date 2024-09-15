@@ -4,20 +4,43 @@
 
 <div class="row">
     <div class="col-lg-6">
-        @if (SolutionFinders?.Count > 1)
-        {
-            <button class="btn btn-primary" @onclick="() => {selectedSolution = (selectedSolution+1) % SolutionFinders!.Count;}">Show other solution</button>
-        }
-        <InputData InputFiles=@InputFiles TInput="TInput" Parser="Parse!" @bind-Input=input />
-        <StepController TInput="TInput" Input="@input" Solution="@SelectedSolutionFinder" Delay="@delay" OnValueChanged="StateHasChanged" />
-        <button class="btn btn-primary" @onclick="SelectedSolutionFinder.Update">Iterate</button>
-        <DelayController @bind-Delay=delay />
-    </div>
-    <div class="col-lg-6">
+        <div class="card shadow-sm p-3 mb-3">
+            <!-- Solution Switcher -->
+            @if (SolutionFinders?.Count > 1)
+            {
+                <button class="btn btn-primary mb-3 w-100" @onclick="() => { selectedSolution = (selectedSolution + 1) % SolutionFinders!.Count; }">
+                    Show Other Solution
+                </button>
+            }
 
-        @if (SelectedSolutionFinder is not null && ChildContent is not null)
-        {
-            @ChildContent(Visualisation)
-        }
+            <!-- Input Data -->
+            <div class="mb-3">
+                <InputData InputFiles=@InputFiles TInput="TInput" Parser="Parse!" @bind-Input=input />
+            </div>
+
+            <!-- Step Controller -->
+            <div class="mb-3">
+                <StepController TInput="TInput" Input="@input" Solution="@SelectedSolutionFinder" Delay="@delay" OnValueChanged="StateHasChanged" />
+            </div>
+
+            <!-- Iterate Button -->
+            <button class="btn btn-success w-100 mb-3" @onclick="SelectedSolutionFinder.Update">Iterate</button>
+
+            <!-- Delay Controller -->
+            <div>
+                <DelayController @bind-Delay=delay />
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-6">
+        <!-- Visualization Section -->
+        <div class="card shadow-sm p-3">
+            @if (SelectedSolutionFinder is not null && ChildContent is not null)
+            {
+                @ChildContent(Visualisation)
+            }
+        </div>
     </div>
 </div>
+
